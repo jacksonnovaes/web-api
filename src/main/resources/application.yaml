@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: test
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+api:
+  security:
+    token:
+      secret: 5d5fa889b8f127e64a4f8cbd6be1a1671cbe1a8260e78785b57887ecc57f6ec206295420721b9c6f2c8c02f052b875534eee9c898dd2455871edfe9916009bc9
