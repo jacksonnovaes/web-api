@@ -23,7 +23,7 @@ class SecurityConfig(
 ) {
 
     val PUBLIC_MATCHERS = arrayOf(
-        "/login/**",
+        "/login",
         "/v3/api-docs/**",
         "/swagger-ui.html",
         "/swagger-ui/**",
@@ -37,7 +37,12 @@ class SecurityConfig(
         "/efi/v2/cob/pix/**",
         "/api/v1/payment/loc/**",
         "/api/v1/pdv/config/**",
-        "/efi/v1/payment/pix"
+        "/efi/v1/payment/pix",
+        "/api/v1/fornecedores/**"
+    )
+
+    val APUBLIC_MATCHERS = arrayOf(
+        "/"
     )
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
@@ -48,9 +53,7 @@ class SecurityConfig(
             .authorizeHttpRequests { authorize ->
                 authorize
                     .requestMatchers(*PUBLIC_MATCHERS).permitAll()
-
-
-                    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+                 //   .requestMatchers(*APUBLIC_MATCHERS).authenticated()
                     .anyRequest().authenticated()
             }
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter::class.java)
@@ -70,21 +73,13 @@ class SecurityConfig(
     fun apiConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration().apply {
             allowedOrigins = listOf(
-                "http://192.168.0.129:8080",
-                "http://82.25.70.125:3000",
-                "http://82.25.70.125:8080",
-                "http://srv744485.hstgr.cloud:8080",
-                "http://172.17.0.1:8080",
-                "http://172.17.0.1:3000",
-                "http://srv744485.hstgr.cloud:4000",
-                "https://srv744485.hstgr.cloud:4000",
                 "http://localhost:8080",
-                "http://localhost:4000",
-                "http://172.18.0.1:8080"
-            )
+                "http://localhost:3000",
+              )
             allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
             allowedHeaders = listOf("*")
             allowCredentials = true
+            allowedOriginPatterns = listOf("*")
         }
 
         val source = UrlBasedCorsConfigurationSource()

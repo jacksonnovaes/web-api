@@ -1,6 +1,5 @@
 package com.aurora.webapi.modules.fichas.infra.entity
 
-import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -25,10 +24,13 @@ data class FichaEntity(
     val notaFiscal: String,
     @Column(name = "dt_entrada")
     val dataEntrada: LocalDate,
-        @ManyToOne
-        @JoinColumn(name = "id_colecao")
-        val colecao: ColecaoEntity,
-        @ManyToOne
-        @JoinColumn(name="id_composicao")
-        val composicao: ComposicaoEntity
+    @ManyToOne
+    @JoinColumn(name = "id_colecao")
+    val colecao: ColecaoEntity,
+    @ManyToOne
+    @JoinColumn(name="id_composicao")
+    val composicao: ComposicaoEntity,
+    @ManyToOne
+    @JoinColumn(name = "id_fornecedor")
+    val fornecedor: FornecedorEntity? = null
 )

@@ -14,7 +14,8 @@ object FichaConverter {
             notaFiscal = ficha.notaFiscal,
             dataEntrada = ficha.dataEntrada,
             colecao = ColecaoConverter.toEntity(ColecaoDTO.onlyId(ficha.colecaoId)),
-            composicao = ComposicaoConverter.toEntity(ComposicaoDTO.onlyId(ficha.composicaoId))
+            composicao = ComposicaoConverter.toEntity(ComposicaoDTO.onlyId(ficha.composicaoId)),
+            fornecedor = null
         )
     }
 
