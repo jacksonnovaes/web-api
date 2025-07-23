@@ -22,7 +22,7 @@ class FonecedorController(
     }
 
 
-    @GetMapping("/list")
+    @GetMapping("/busca")
     fun buscaPronome() : ResponseEntity<List<FornecedorDTO>?> {
 
         val listAll = listAllFornecedores.execute()
