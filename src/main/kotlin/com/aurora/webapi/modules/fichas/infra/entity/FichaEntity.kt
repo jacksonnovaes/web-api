@@ -1,5 +1,6 @@
 package com.aurora.webapi.modules.fichas.infra.entity
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -24,13 +25,17 @@ data class FichaEntity(
     val notaFiscal: String,
     @Column(name = "dt_entrada")
     val dataEntrada: LocalDate,
+    @Column(name = "largura")
+    val largura: Float,
     @ManyToOne
     @JoinColumn(name = "id_colecao")
     val colecao: ColecaoEntity,
     @ManyToOne
     @JoinColumn(name="id_composicao")
+    @JsonBackReference
     val composicao: ComposicaoEntity,
     @ManyToOne
     @JoinColumn(name = "id_fornecedor")
-    val fornecedor: FornecedorEntity? = null
+    @JsonBackReference
+    val fornecedor: FornecedorEntity
 )

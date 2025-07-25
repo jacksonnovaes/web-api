@@ -7,7 +7,7 @@ object FornecedorConverter {
 
     fun toEntity(fornecedor: FornecedorDTO): FornecedorEntity {
         return FornecedorEntity(
-            id = null,
+            id = fornecedor.id,
             nome = fornecedor.nome,
             fichas = emptyList()
         )

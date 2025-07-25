@@ -15,7 +15,7 @@ object ComposicaoConverter {
 
 
 
-    fun toDomain(composicao: ComposicaoEntity): ComposicaoDTO {
+    fun toDTO(composicao: ComposicaoEntity): ComposicaoDTO {
         return ComposicaoDTO(
             id = composicao.id,
             descricao = composicao.descricao,

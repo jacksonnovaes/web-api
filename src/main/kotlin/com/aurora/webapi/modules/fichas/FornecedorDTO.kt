@@ -8,4 +8,8 @@ data class FornecedorDTO(
     val nome: String,
     val fichas: List<FichaEntity>,
 
-    )
+    ){
+    companion object {
+        fun onlyId(id: Long?) = FornecedorDTO(id, "", emptyList())
+    }
+}

@@ -9,5 +9,5 @@ interface FornecedorRepository: JpaRepository<FornecedorEntity, Long>{
 
     override fun findAll(): List<FornecedorEntity>
 
-    fun findByNome(name: String)
+    fun findByNome(name: String): List<FornecedorEntity>
 }
