@@ -75,6 +75,7 @@ class SecurityConfig(
             allowedOrigins = listOf(
                 "http://localhost:8080",
                 "http://localhost:3000",
+                "http://https://aurora-theta-six.vercel.app",
               )
             allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
             allowedHeaders = listOf("*")
