@@ -1,8 +1,8 @@
 package com.aurora.webapi.modules.fichas.controller
 
 import com.aurora.webapi.modules.fichas.FornecedorDTO
-import com.aurora.webapi.modules.fichas.usecases.BuscaPorNomeFornecedores
-import com.aurora.webapi.modules.fichas.usecases.ListAllFornecedores
+import com.aurora.webapi.modules.fichas.usecases.fornecedores.BuscaPorNomeFornecedores
+import com.aurora.webapi.modules.fichas.usecases.fornecedores.ListAllFornecedores
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping

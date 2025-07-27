@@ -28,17 +28,12 @@ class SecurityConfig(
         "/swagger-ui.html",
         "/swagger-ui/**",
         "/h2/**",
-        "/api/v1/address/**",
-        "/api/v1/product/**",
-        "/api/v1/product/menu/**",
-        "/api/v1/payment/**",
-        "/api/v1/signup/**",
-        "/api/v1/customer/signup/save",
-        "/efi/v2/cob/pix/**",
-        "/api/v1/payment/loc/**",
-        "/api/v1/pdv/config/**",
-        "/efi/v1/payment/pix",
-        "/api/v1/fornecedores/**"
+        "/api/v1/fornecedores/**",
+        "/v1/fichas/save/**",
+        "/api/v1/lavagem/save/**",
+        "/v1/artigos/**",
+        "/v1/colecao/**"
+
     )
 
     val APUBLIC_MATCHERS = arrayOf(

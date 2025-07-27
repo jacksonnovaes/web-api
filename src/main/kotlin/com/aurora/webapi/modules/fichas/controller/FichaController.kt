@@ -1,8 +1,8 @@
 package com.aurora.webapi.modules.fichas.controller
 
 import com.aurora.webapi.modules.fichas.FichaDTO
-import com.aurora.webapi.modules.fichas.usecases.ListAllFichas
-import com.aurora.webapi.modules.fichas.usecases.SaveFicha
+import com.aurora.webapi.modules.fichas.usecases.fichas.ListAllFichas
+import com.aurora.webapi.modules.fichas.usecases.fichas.SaveFicha
 import com.aurora.webapi.utils.PageResponse
 import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
