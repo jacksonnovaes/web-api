@@ -5,10 +5,8 @@ data class ComposicaoDTO(
 
     val descricao: String,
 
-    val cor: String
-
 ) {
     companion object {
-        fun onlyId(id: Long?) = ComposicaoDTO(id, "", cor="")
+        fun onlyId(id: Long?) = ComposicaoDTO(id, "")
     }
 }

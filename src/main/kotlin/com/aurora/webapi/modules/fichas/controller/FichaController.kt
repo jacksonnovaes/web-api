@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 import toPageResponse
 
 @RestController
-    @RequestMapping("/v1/fichas")
+@RequestMapping("/v1/fichas")
 class FichaController(
     private final val saveFicha: SaveFicha,
     private final val listAllFichas: ListAllFichas

@@ -10,7 +10,7 @@ class UpdateFicha(
     val fIchaService: FichaService
 ) {
     fun execute(fichaDTO: FichaDTO, id: Long): FichaDTO {
-
-        return FichaConverter.toDTO(fIchaService.saveFicha(fichaDTO))
+        val ficha  = FichaConverter.toEntity(fichaDTO)
+        return FichaConverter.toDTO(fIchaService.save(ficha))
     }
 }

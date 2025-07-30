@@ -12,7 +12,7 @@ class SaveColecao(
 
     fun execute(colecaoDTO: ColecaoDTO): ColecaoDTO{
         val colecao = ColecaoConverter.toEntity(colecaoDTO)
-        val colecaoDTO = ColecaoConverter.toDomain(colecaoService.salvarColecao(colecao))
+        val colecaoDTO = ColecaoConverter.toDTO(colecaoService.save(colecao))
         return  colecaoDTO
     }
 }

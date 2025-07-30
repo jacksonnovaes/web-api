@@ -1,22 +1,36 @@
 package com.aurora.webapi.modules.fichas.service.ficha
 
-import com.aurora.webapi.modules.fichas.FichaDTO
-import com.aurora.webapi.modules.fichas.converter.FichaConverter
+import com.aurora.webapi.exceptions.EntityNotFoundException
 import com.aurora.webapi.modules.fichas.infra.entity.FichaEntity
 import com.aurora.webapi.modules.fichas.infra.repositories.FichaRepository
+import com.aurora.webapi.modules.fichas.service.CrudService
 import org.springframework.stereotype.Service
 
 @Service
 class FichaService(
     val fichaRepository: FichaRepository
-) {
+): CrudService<FichaEntity> {
 
-    fun saveFicha(ficha: FichaDTO): FichaEntity {
-        val fichaEntity = FichaConverter.toEntity(ficha = ficha)
-        return fichaRepository.save(fichaEntity)
+
+
+    override fun save(entity: FichaEntity): FichaEntity {
+         return fichaRepository.save(entity)
     }
-    fun updateFicha(ficha: FichaDTO): FichaEntity {
-        val fichaEntity = FichaConverter.toEntity(ficha = ficha)
-        return fichaRepository.save(fichaEntity)
+
+    override fun buscarPorId(id: Long): FichaEntity? {
+        return fichaRepository.findById(id)
+            .orElseThrow{throw EntityNotFoundException("ficha nao encontrada")}
+    }
+
+    override fun buscarTodos(): List<FichaEntity> {
+        return fichaRepository.findAll()
+    }
+
+    override fun buscarPorIds(ids: List<Long>): List<FichaEntity> {
+          return  fichaRepository.findAllById(ids)
+    }
+
+    override fun deletar(id: Long) {
+       fichaRepository.deleteById(id)
     }
 }

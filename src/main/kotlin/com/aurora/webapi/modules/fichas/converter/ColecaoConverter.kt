@@ -12,7 +12,7 @@ object ColecaoConverter {
         )
     }
 
-    fun toDomain(colecao: ColecaoEntity): ColecaoDTO {
+    fun toDTO(colecao: ColecaoEntity): ColecaoDTO {
         return ColecaoDTO(
             id = colecao.id!!,
             nome = colecao.nome,

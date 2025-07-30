@@ -14,13 +14,21 @@ import com.aurora.webapi.modules.fichas.FichaDTO
 import com.aurora.webapi.modules.fichas.FornecedorDTO
 import com.aurora.webapi.modules.fichas.converter.FichaConverter
 import com.aurora.webapi.modules.fichas.converter.FornecedorConverter
+import com.aurora.webapi.modules.fichas.infra.entity.ArtigoEntity
+import com.aurora.webapi.modules.fichas.infra.entity.LavagenEntity
+import com.aurora.webapi.modules.fichas.infra.repositories.ArtigoRepository
 import com.aurora.webapi.modules.fichas.infra.repositories.FichaRepository
 import com.aurora.webapi.modules.fichas.infra.repositories.FornecedorRepository
+import com.aurora.webapi.modules.fichas.infra.repositories.LavagemRepository
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.security.crypto.password.PasswordEncoder
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.Arrays
+import java.util.Locale
 
 @SpringBootApplication
 class WebApiApplication(
@@ -30,7 +38,9 @@ class WebApiApplication(
 	private final val userRepository: UserRepository,
 	private final val fichaRepository: FichaRepository,
 	private final val passwordEncoder: PasswordEncoder,
-	private final val fornecedorRepository: FornecedorRepository
+	private final val fornecedorRepository: FornecedorRepository,
+	private final val lavagemRepository: LavagemRepository,
+	private final val artigoRepository: ArtigoRepository,
 ) : CommandLineRunner {
 
 	override fun run(vararg args: String?) {
@@ -48,15 +58,45 @@ class WebApiApplication(
 			userId = userSaved.id
 
 		)
+
+		val instricoes = LavagenEntity(
+			id = null,
+			descricao = "nao passar",
+			code  = 1,
+			imagem = ByteArray(0)
+		)
+
+		val instricoes2 = LavagenEntity(
+			id = null,
+			descricao = "nao lavar",
+			code  = 1,
+			imagem = ByteArray(0)
+		)
+
+		val artigo = ArtigoEntity(
+			id = null,
+			nome = "Alfaiataria RVERTON",
+			instrucions = Arrays.asList(instricoes, instricoes2)
+		)
 		val composocao = ComposicaoDTO(
 			id = null,
-			descricao = "100 % algodao",
-			cor = "#fff"
+			descricao = "100 % algodao "
 		)
+		val composocao2 = ComposicaoDTO(
+			id = null,
+			descricao = "10 % algodao 90% elastano "
+		)
+
 
 		val colecaoDTO = ColecaoDTO(
 			id = null,
 			nome = "verao",
+			ano = 2026,
+		)
+
+		val colecaoDTO2 = ColecaoDTO(
+			id = null,
+			nome = "inverno",
 			ano = 2026,
 		)
 
@@ -70,24 +110,29 @@ class WebApiApplication(
 		val composicaoEntity = ComposicaoConverter.toEntity(composocao)
 
 		val colecaoEntity = ColecaoConverter.toEntity(colecaoDTO)
+		val colecaoEntity2 = ColecaoConverter.toEntity(colecaoDTO2)
 		val fornecedorEntity = FornecedorConverter.toEntity(fornecedor)
 
 		val composicaoSaved = composicaoRepository.save(composicaoEntity)
 		val colecaoSaved = colecaoRepository.save(colecaoEntity)
 		val fornecedorSaved = fornecedorRepository.save(fornecedorEntity)
 		employeeRepository.save(employee)
+		val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+		val dataEntrada = LocalDate.parse("06/04/2025", formatter)
 
 		val ficha  = FichaDTO(
 			id = null,
-			numeroFicha = "1232",
-			notaFiscal = "2020",
+			numeroFicha = 1232,
+			notaFiscal = 2020,
 			composicaoId = composicaoSaved.id,
-			dataEntrada = LocalDate.now(),
+			dataEntrada = LocalDate.now().minusDays(2),
 			colecaoId = colecaoSaved.id,
 			fornecedorId = fornecedorSaved.id,
 			largura = 100.00F
 		)
 		fichaRepository.save(FichaConverter.toEntity(ficha))
+		lavagemRepository.saveAll(Arrays.asList(instricoes, instricoes2))
+		artigoRepository.save(artigo)
 
 	}
 }

@@ -8,18 +8,14 @@ object ComposicaoConverter {
         return ComposicaoEntity(
             id = composicao.id,
             descricao = composicao.descricao,
-            cor = composicao.cor,
             fichas = emptyList()
         )
     }
-
-
 
     fun toDTO(composicao: ComposicaoEntity): ComposicaoDTO {
         return ComposicaoDTO(
             id = composicao.id,
             descricao = composicao.descricao,
-            cor = composicao.cor
         )
     }
 

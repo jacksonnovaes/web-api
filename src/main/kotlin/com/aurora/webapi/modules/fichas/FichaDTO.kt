@@ -4,9 +4,9 @@ import java.time.LocalDate
 
 data class FichaDTO(
     val id: Long? = null,
-    val numeroFicha: String,
-    val notaFiscal: String,
-    val dataEntrada: LocalDate,
+    val numeroFicha: Int,
+    val notaFiscal: Int,
+    val dataEntrada: LocalDate?,
     val largura: Float,
     val colecaoId: Long?,
     val composicaoId: Long?,
