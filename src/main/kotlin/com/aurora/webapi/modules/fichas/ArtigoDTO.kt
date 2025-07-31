@@ -6,9 +6,10 @@ data class ArtigoDTO(
     val id: Long? = null,
     @NotBlank
     val nome: String,
-    val instrucoes: List<Long>? = emptyList()
-) {
+    val instrucoes: List<Long>? = emptyList(),
+    val categoriaId: Long?
+){
     companion object {
-        fun onlyId(id: Long?) = ArtigoDTO(id, "", emptyList())
+        fun onlyId(id: Long?) = ArtigoDTO(id, "", emptyList(), categoriaId = null)
     }
 }

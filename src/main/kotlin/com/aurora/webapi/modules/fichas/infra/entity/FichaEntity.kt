@@ -10,7 +10,7 @@ import java.time.LocalDateTime
 data class FichaEntity(
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ficha_seq")
-    @Column(name = "id_ficha")
+    @Column(name = "id")
     val id: Long? = null,
     @Column(name = "nr_ficha")
     val numeroFicha: String,
@@ -26,6 +26,10 @@ data class FichaEntity(
     @ManyToOne
     @JoinColumn(name = "id_colecao")
     val colecao: ColecaoEntity,
+
+    @ManyToOne
+    @JoinColumn(name = "id_artigo")
+    val artigo: ArtigoEntity,
     @ManyToOne
     @JoinColumn(name="id_composicao")
     @JsonBackReference

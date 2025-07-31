@@ -1,6 +1,7 @@
 package com.aurora.webapi.modules.fichas.controller
 
 import com.aurora.webapi.modules.fichas.FichaDTO
+import com.aurora.webapi.modules.fichas.FichaReponseDTO
 import com.aurora.webapi.modules.fichas.usecases.fichas.ListAllFichas
 import com.aurora.webapi.modules.fichas.usecases.fichas.SaveFicha
 import com.aurora.webapi.utils.PageResponse
@@ -30,9 +31,9 @@ class FichaController(
     fun getListAllFichs(
         @RequestParam(value = "page", defaultValue = "0") page: Int,
         @RequestParam(value = "linesPerPage", defaultValue = "24") linesPerPage: Int,
-        @RequestParam(value = "order", defaultValue = "dataEntrada") orderBy: String,
+        @RequestParam(value = "order", defaultValue = "dt_entrada") orderBy: String,
         @RequestParam(value = "direction", defaultValue = "ASC") direction: String)
-    : ResponseEntity<PageResponse<FichaDTO>>{
+    : ResponseEntity<PageResponse<FichaReponseDTO>>{
 
        val listAll = listAllFichas.execute(page, linesPerPage, orderBy, direction)
 

@@ -1,5 +1,6 @@
 package com.aurora.webapi.modules.fichas.infra.entity
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
@@ -9,6 +10,7 @@ import jakarta.persistence.JoinColumn
 import jakarta.persistence.JoinColumns
 import jakarta.persistence.JoinTable
 import jakarta.persistence.ManyToMany
+import jakarta.persistence.ManyToOne
 import jakarta.persistence.SequenceGenerator
 import jakarta.persistence.Table
 
@@ -17,7 +19,7 @@ import jakarta.persistence.Table
 @SequenceGenerator(name = "artigo_seq", sequenceName = "artigo_seq", allocationSize = 1)
 data class ArtigoEntity(
     @Id @GeneratedValue(strategy =  GenerationType.SEQUENCE, generator = "artigo_seq")
-    @Column(name = "id_artigo")
+    @Column(name = "id")
     val id: Long? = null,
     val nome: String,
     @ManyToMany
@@ -25,5 +27,9 @@ data class ArtigoEntity(
         name = "artigo_lavagem",
         joinColumns = [JoinColumn(name = "id_artigo")],
         inverseJoinColumns = [JoinColumn(name = "id_lavagem")])
-    val instrucions: List<LavagenEntity>? = emptyList()
+    val instrucions: List<LavagenEntity>? = emptyList(),
+    @ManyToOne
+    @JoinColumn(name = "id_categoria")
+    @JsonBackReference
+    val categotia: CategoriaEntity
 )

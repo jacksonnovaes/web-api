@@ -10,7 +10,7 @@ import jakarta.persistence.*
 data class ColecaoEntity(
 
     @Id @GeneratedValue(strategy =  GenerationType.SEQUENCE, generator = "colecao_seq")
-    @Column(name = "id_colecao")
+    @Column(name = "id")
     val id: Long? = null,
     @Column(name = "descricao")
     val nome: String,

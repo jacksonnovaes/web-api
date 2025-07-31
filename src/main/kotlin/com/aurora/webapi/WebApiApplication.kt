@@ -15,8 +15,10 @@ import com.aurora.webapi.modules.fichas.FornecedorDTO
 import com.aurora.webapi.modules.fichas.converter.FichaConverter
 import com.aurora.webapi.modules.fichas.converter.FornecedorConverter
 import com.aurora.webapi.modules.fichas.infra.entity.ArtigoEntity
+import com.aurora.webapi.modules.fichas.infra.entity.CategoriaEntity
 import com.aurora.webapi.modules.fichas.infra.entity.LavagenEntity
 import com.aurora.webapi.modules.fichas.infra.repositories.ArtigoRepository
+import com.aurora.webapi.modules.fichas.infra.repositories.CategoriaRepository
 import com.aurora.webapi.modules.fichas.infra.repositories.FichaRepository
 import com.aurora.webapi.modules.fichas.infra.repositories.FornecedorRepository
 import com.aurora.webapi.modules.fichas.infra.repositories.LavagemRepository
@@ -41,6 +43,7 @@ class WebApiApplication(
 	private final val fornecedorRepository: FornecedorRepository,
 	private final val lavagemRepository: LavagemRepository,
 	private final val artigoRepository: ArtigoRepository,
+	private final val categoriaRepository: CategoriaRepository
 ) : CommandLineRunner {
 
 	override fun run(vararg args: String?) {
@@ -66,17 +69,24 @@ class WebApiApplication(
 			imagem = ByteArray(0)
 		)
 
+
+		val categoria = CategoriaEntity(
+			nome = "CHIFON"
+		)
+		val categoriaSaved =  categoriaRepository.save(categoria)
 		val instricoes2 = LavagenEntity(
 			id = null,
 			descricao = "nao lavar",
 			code  = 1,
 			imagem = ByteArray(0)
 		)
+		val instricoesSalvas = lavagemRepository.saveAll(listOf(instricoes, instricoes2))
 
 		val artigo = ArtigoEntity(
 			id = null,
 			nome = "Alfaiataria RVERTON",
-			instrucions = Arrays.asList(instricoes, instricoes2)
+			instrucions = instricoesSalvas,
+			categotia = categoriaSaved
 		)
 		val composocao = ComposicaoDTO(
 			id = null,
@@ -119,6 +129,7 @@ class WebApiApplication(
 		employeeRepository.save(employee)
 		val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 		val dataEntrada = LocalDate.parse("06/04/2025", formatter)
+		val artigoSaved = artigoRepository.save(artigo)
 
 		val ficha  = FichaDTO(
 			id = null,
@@ -126,13 +137,12 @@ class WebApiApplication(
 			notaFiscal = 2020,
 			composicaoId = composicaoSaved.id,
 			dataEntrada = LocalDate.now().minusDays(2),
+			artigoId = artigoSaved.id,
 			colecaoId = colecaoSaved.id,
 			fornecedorId = fornecedorSaved.id,
 			largura = 100.00F
 		)
 		fichaRepository.save(FichaConverter.toEntity(ficha))
-		lavagemRepository.saveAll(Arrays.asList(instricoes, instricoes2))
-		artigoRepository.save(artigo)
 
 	}
 }
