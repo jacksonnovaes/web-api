@@ -1,21 +1,27 @@
 package com.aurora.webapi.modules.fichas.controller
 
 import com.aurora.webapi.modules.fichas.FornecedorDTO
+import com.aurora.webapi.modules.fichas.FornecedorRequestDTO
 import com.aurora.webapi.modules.fichas.usecases.fornecedores.BuscaPorNomeFornecedores
 import com.aurora.webapi.modules.fichas.usecases.fornecedores.ListAllFornecedores
+import com.aurora.webapi.modules.fichas.usecases.fornecedores.SaveFornecedor
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api/v1/fornecedores")
+@RequestMapping("/v1/fornecedor")
 class FonecedorController(
         val listAllFornecedores: ListAllFornecedores,
-        val buscaPorNomeFornecedores: BuscaPorNomeFornecedores
+        val buscaPorNomeFornecedores: BuscaPorNomeFornecedores,
+        val saveFornecedor: SaveFornecedor
 ) {
 
+
+    @PostMapping("/save")
+    fun saveFornecedor(@RequestBody  dto: FornecedorRequestDTO) {
+        println("Nome recebido: ${dto.nome}")
+        saveFornecedor.execute(dto)
+    }
     @GetMapping("/list")
     fun getListAllFichas(): ResponseEntity<List<FornecedorDTO>?> {
 
@@ -29,4 +35,5 @@ class FonecedorController(
         val listAll = buscaPorNomeFornecedores.execute(nome)
         return ResponseEntity.ok(listAll)
     }
+
 }

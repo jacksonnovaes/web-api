@@ -36,9 +36,14 @@ class ArtigoController(
                 ArtigoResponseDTO(
                     artigo.id,
                     artigo.nome,
-                    artigo.instrucions?.map { lavagem ->
-                            lavagem.descricao
-                    } ?: emptyList()
+                    artigo.instrucions?.map { it
+                        LavagenRespondeDTO(
+                            id=it.id,
+                            descricao = it.descricao,
+                            code = it.code,
+                            imagem = it.imagem
+                        )
+                    }
             )
         })
     }

@@ -27,12 +27,12 @@ class SecurityConfig(
         "/swagger-ui.html",
         "/swagger-ui/**",
         "/h2/**",
-        "/api/v1/fornecedores/**",
         "/v1/fichas/**",
         "/api/v1/lavagem/save/**",
         "/v1/artigos/**",
         "/v1/colecao/**",
-        "/v1/composicao/**"
+        "/v1/composicao/**",
+        "/v1/fornecedor/**"
 
     )
 

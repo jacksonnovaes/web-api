@@ -1,4 +1,4 @@
-package com.aurora.webapi.config
+package com.aurora.webapi.modules.config
 
 
 import com.aurora.webapi.exceptions.AuthorizationException

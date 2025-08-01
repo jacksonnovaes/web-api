@@ -1,4 +1,4 @@
-package com.aurora.webapi.config
+package com.aurora.webapi.modules.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

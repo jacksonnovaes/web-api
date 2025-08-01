@@ -3,7 +3,7 @@ package com.aurora.webapi.modules.fichas
 data class ArtigoResponseDTO(
     val id: Long? = null,
     val nome: String,
-    val instrucoes: List<String>? = emptyList(),
+    val instrucoes: List<LavagenRespondeDTO>? = emptyList(),
 
     )
 data class LavagenRespondeDTO(
