@@ -7,6 +7,7 @@ data class FichaDTO(
     val numeroFicha: Int,
     val notaFiscal: Int,
     val dataEntrada: LocalDate?,
+    val anoColecao: Int,
     val largura: Float,
     val artigoId: Long?,
     val colecaoId: Long?,

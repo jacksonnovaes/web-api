@@ -144,6 +144,7 @@ class WebApiApplication(
 			notaFiscal = 2020,
 			composicaoId = composicaoSaved.id,
 			dataEntrada = LocalDate.now().minusDays(2),
+			anoColecao = 2025,
 			artigoId = artigoSaved.id,
 			colecaoId = colecaoSaved.id,
 			fornecedorId = fornecedorSaved.id,

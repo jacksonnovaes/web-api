@@ -18,6 +18,8 @@ data class FichaEntity(
     val notaFiscal: String,
     @Column(name = "dt_entrada")
     val dataEntrada: LocalDate?,
+    @Column(name = "ano_colecao")
+    val anoColecao: Int,
 
     @Column(name = "dt_registro")
     val dataRegistro: LocalDateTime = LocalDateTime.now(),
