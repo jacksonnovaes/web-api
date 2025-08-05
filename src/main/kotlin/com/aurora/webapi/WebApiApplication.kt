@@ -14,10 +14,15 @@ import com.aurora.webapi.modules.fichas.FichaDTO
 import com.aurora.webapi.modules.fichas.FornecedorDTO
 import com.aurora.webapi.modules.fichas.converter.FichaConverter
 import com.aurora.webapi.modules.fichas.converter.FornecedorConverter
+import com.aurora.webapi.modules.fichas.infra.entity.AnoColecaoEntity
 import com.aurora.webapi.modules.fichas.infra.entity.ArtigoEntity
 import com.aurora.webapi.modules.fichas.infra.entity.CategoriaEntity
+import com.aurora.webapi.modules.fichas.infra.entity.CategoriaLavagemEntity
+import com.aurora.webapi.modules.fichas.infra.entity.ColecaoEntity
 import com.aurora.webapi.modules.fichas.infra.entity.LavagenEntity
+import com.aurora.webapi.modules.fichas.infra.repositories.AnoColecaoRepository
 import com.aurora.webapi.modules.fichas.infra.repositories.ArtigoRepository
+import com.aurora.webapi.modules.fichas.infra.repositories.CategoriaLagamRepository
 import com.aurora.webapi.modules.fichas.infra.repositories.CategoriaRepository
 import com.aurora.webapi.modules.fichas.infra.repositories.FichaRepository
 import com.aurora.webapi.modules.fichas.infra.repositories.FornecedorRepository
@@ -27,10 +32,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.security.crypto.password.PasswordEncoder
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.Arrays
-import java.util.Locale
 
 @SpringBootApplication
 class WebApiApplication(
@@ -43,7 +45,9 @@ class WebApiApplication(
 	private final val fornecedorRepository: FornecedorRepository,
 	private final val lavagemRepository: LavagemRepository,
 	private final val artigoRepository: ArtigoRepository,
-	private final val categoriaRepository: CategoriaRepository
+	private final val categoriaRepository: CategoriaRepository,
+	private final val categoriaLagamRepository: CategoriaLagamRepository,
+	private final val anoColecaoRepository: AnoColecaoRepository
 ) : CommandLineRunner {
 
 	override fun run(vararg args: String?) {
@@ -53,6 +57,26 @@ class WebApiApplication(
 			pass = passwordEncoder.encode("11223344")
 		)
 		val userSaved  = userRepository.save(user)
+
+		val ano2027 = AnoColecaoEntity(
+			null,
+			ano = 2027.toString()
+		)
+		val ano2026 = AnoColecaoEntity(
+			null,
+			ano = 2025.toString()
+		)
+
+		val anoColecao2025 = anoColecaoRepository.save(ano2027)
+		val anoColecao2026 = anoColecaoRepository.save(ano2026)
+
+		val categoriaLavagem = CategoriaLavagemEntity(
+			id = null,
+			descricao = "lavagens",
+
+		)
+
+		val categoriaLavagemSaved = categoriaLagamRepository.save(categoriaLavagem)
 		val employee = Employee(
 			id = null,
 			nome = "Jackson",
@@ -68,7 +92,8 @@ class WebApiApplication(
 			id = null,
 			descricao = "nao passar",
 			code  = 1,
-			imagem =  hexToByteArray(hexImage)
+			imagem =  hexToByteArray(hexImage),
+			categoria = categoriaLavagemSaved
 		)
 
 
@@ -84,7 +109,8 @@ class WebApiApplication(
 			id = null,
 			descricao = "nao lavar",
 			code  = 1,
-			imagem = hexToByteArray(hexImage2)
+			imagem = hexToByteArray(hexImage2),
+			categoria = categoriaLavagem
 		)
 
 		val instricoesSalvas = lavagemRepository.saveAll(listOf(instricoes, instricoes2))
@@ -108,13 +134,13 @@ class WebApiApplication(
 		val colecaoDTO = ColecaoDTO(
 			id = null,
 			nome = "verao",
-			ano = 2026,
+			anoColecaoId = anoColecao2025.id,
 		)
 
 		val colecaoDTO2 = ColecaoDTO(
 			id = null,
 			nome = "inverno",
-			ano = 2026,
+			anoColecaoId = anoColecao2026.id,
 		)
 
 		val fornecedor = FornecedorDTO(
@@ -122,12 +148,16 @@ class WebApiApplication(
 			nome = " FERNANDO LTDA",
 			fichas = emptyList()
 		)
+		val colecaoEntity = ColecaoEntity(
+			id = null,
+			descricao = colecaoDTO.nome,
+			anoCoelecao = anoColecao2025
+		)
 
 
 		val composicaoEntity = ComposicaoConverter.toEntity(composocao)
 
-		val colecaoEntity = ColecaoConverter.toEntity(colecaoDTO)
-		val colecaoEntity2 = ColecaoConverter.toEntity(colecaoDTO2)
+
 		val fornecedorEntity = FornecedorConverter.toEntity(fornecedor)
 
 		val composicaoSaved = composicaoRepository.save(composicaoEntity)
@@ -144,9 +174,9 @@ class WebApiApplication(
 			notaFiscal = 2020,
 			composicaoId = composicaoSaved.id,
 			dataEntrada = LocalDate.now().minusDays(2),
-			anoColecao = 2025,
 			artigoId = artigoSaved.id,
 			colecaoId = colecaoSaved.id,
+			anoColecaoId = colecaoSaved.anoCoelecao?.id,
 			fornecedorId = fornecedorSaved.id,
 			largura = 100.00F
 		)

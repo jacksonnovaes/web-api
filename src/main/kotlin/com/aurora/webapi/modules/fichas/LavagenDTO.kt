@@ -4,7 +4,8 @@ data class LavagenDTO(
     val id: Long? = null,
     val descricao: String,
     val code: Int,
-    val imagem: ByteArray
+    val imagem: ByteArray,
+    val lavagemCategoriaID : Long?
 
 ){
     override fun equals(other: Any?): Boolean {

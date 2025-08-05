@@ -1,7 +1,6 @@
 package com.aurora.webapi.modules.fichas.converter
 
 import com.aurora.webapi.modules.fichas.ArtigoDTO
-import com.aurora.webapi.modules.fichas.ArtigoResponseDTO
 import com.aurora.webapi.modules.fichas.ColecaoDTO
 import com.aurora.webapi.modules.fichas.ComposicaoDTO
 import com.aurora.webapi.modules.fichas.FichaDTO
@@ -20,7 +19,6 @@ object FichaConverter {
             notaFiscal = ficha.notaFiscal.toString(),
             dataEntrada = ficha.dataEntrada,
             dataRegistro = LocalDateTime.now(),
-            anoColecao = ficha.anoColecao,
             colecao = ColecaoConverter.toEntity(ColecaoDTO.onlyId(ficha.colecaoId)),
             composicao = ComposicaoConverter.toEntity(ComposicaoDTO.onlyId(ficha.composicaoId)),
             fornecedor = FornecedorConverter.toEntity(FornecedorDTO.onlyId(ficha.fornecedorId)),
@@ -35,9 +33,9 @@ object FichaConverter {
             numeroFicha = entity.numeroFicha.toInt(),
             notaFiscal = entity.notaFiscal.toInt(),
             dataEntrada = entity.dataEntrada,
-            anoColecao = entity.anoColecao,
             colecaoId = ColecaoConverter.toDTO(entity.colecao).id,
             artigoId = ArtigoConverter.toDTO(entity.artigo).id,
+            anoColecaoId = AnoColecaoConverter.toDTO(entity.colecao.anoCoelecao).id,
             composicaoId = ComposicaoConverter.toDTO(entity.composicao).id,
             fornecedorId = FornecedorConverter.toDTO(entity.fornecedor).id,
             largura = entity.largura,
@@ -51,8 +49,8 @@ object FichaConverter {
             notaFiscal = entity.notaFiscal.toInt(),
             dataEntrada = entity.dataEntrada,
             artigo = entity.artigo.nome,
-            colecao = entity.colecao.nome,
-            anoColecao = entity.colecao.ano,
+            colecao = entity.colecao.descricao,
+            anoColecao = entity.colecao.anoCoelecao?.ano ?: "",
             composicao = entity.composicao.descricao,
             fornecedor = entity.fornecedor.nome,
             largura = entity.largura,

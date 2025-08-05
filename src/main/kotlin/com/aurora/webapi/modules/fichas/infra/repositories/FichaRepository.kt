@@ -23,13 +23,13 @@ interface FichaRepository: JpaRepository<FichaEntity, Long>{
                          ficha.nr_ficha, 
                          ficha.nota_fiscal,
                          fornecedor.nome,categoria.nome, 
-                         colecao.descricao, 
-                         colecao.ano_colecao, 
+                         colecao.descricao,
+                         anocolecao.ano_colecao,
                          composicao.descricao
-        
                         FROM TB_FICHA ficha INNER JOIN TB_ARTIGO artigo ON artigo.ID = ficha.ID_ARTIGO
                         INNER JOIN TB_CATEGORIA categoria ON categoria.ID = artigo.ID_CATEGORIA
                         INNER JOIN TB_COLECAO colecao ON colecao.ID = ficha.ID_COLECAO
+			            INNER JOIN TB_ANO_COLECAO anocolecao on anocolecao.ID = colecao.ID_ANO_COLECAO
                         INNER JOIN TB_COMPOSICAO  composicao ON composicao.ID_COMPOSICAO = ficha.ID_COMPOSICAO
                         INNER JOIN TB_FORNECEDOR  fornecedor ON fornecedor.ID = ficha.ID_FORNECEDOR
                         """

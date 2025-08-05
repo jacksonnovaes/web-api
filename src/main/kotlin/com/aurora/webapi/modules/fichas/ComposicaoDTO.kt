@@ -3,7 +3,7 @@ package com.aurora.webapi.modules.fichas
 data class ComposicaoDTO(
     val id: Long?,
 
-    val descricao: String,
+    val descricao: String="",
 
 ) {
     companion object {

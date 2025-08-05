@@ -5,7 +5,9 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
 import jakarta.persistence.Lob
+import jakarta.persistence.ManyToOne
 import jakarta.persistence.SequenceGenerator
 import jakarta.persistence.Table
 
@@ -20,8 +22,11 @@ data class LavagenEntity(
     val code: Int,
     @Lob
     @Column(name = "imagem", columnDefinition = "BYTEA") // PostgreSQL usa BYTEA
-    val imagem: ByteArray
-) {
+    val imagem: ByteArray,
+    @ManyToOne
+    @JoinColumn(name = "categoria_id")
+    val categoria: CategoriaLavagemEntity?
+){
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -32,6 +37,7 @@ data class LavagenEntity(
         if (code != other.code) return false
         if (descricao != other.descricao) return false
         if (!imagem.contentEquals(other.imagem)) return false
+        if (categoria != other.categoria) return false
 
         return true
     }
@@ -41,7 +47,7 @@ data class LavagenEntity(
         result = 31 * result + code
         result = 31 * result + descricao.hashCode()
         result = 31 * result + imagem.contentHashCode()
+        result = 31 * result + categoria.hashCode()
         return result
     }
-
 }

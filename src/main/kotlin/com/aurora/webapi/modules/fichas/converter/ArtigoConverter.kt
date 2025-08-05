@@ -13,7 +13,7 @@ object ArtigoConverter {
         return ArtigoEntity(
             id = entity.id,
             nome = entity.nome,
-            instrucions = entity.instrucoes?.map { LavagenEntity(id = it, descricao = "", code = 0, imagem = ByteArray(0)) } ?: emptyList(),
+            instrucions = entity.instrucoes?.map { LavagenEntity(id = it, descricao = "", code = 0, imagem = ByteArray(0), categoria = null) } ?: emptyList(),
             categotia = CategoriaConverter.toEntity(CategoriaDTO.onlyId(entity.categoriaId))
         )
     }

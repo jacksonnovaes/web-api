@@ -1,12 +1,7 @@
 package com.aurora.webapi.modules.fichas.controller
 
-import com.aurora.webapi.modules.fichas.ArtigoDTO
-import com.aurora.webapi.modules.fichas.ArtigoResponseDTO
 import com.aurora.webapi.modules.fichas.ColecaoDTO
-import com.aurora.webapi.modules.fichas.LavagenDTO
-import com.aurora.webapi.modules.fichas.LavagenRespondeDTO
-import com.aurora.webapi.modules.fichas.usecases.artigo.ListArtigos
-import com.aurora.webapi.modules.fichas.usecases.artigo.SaveArtigo
+import com.aurora.webapi.modules.fichas.ColecaoResponseDTO
 import com.aurora.webapi.modules.fichas.usecases.colecao.ListColecao
 import com.aurora.webapi.modules.fichas.usecases.colecao.SaveColecao
 import org.springframework.http.ResponseEntity
@@ -24,22 +19,25 @@ class ColecaoController(
 ) {
 
     @PostMapping("/save")
-    fun saveColecao(@RequestBody colecaoDTO: ColecaoDTO) {
-        saveColecao.execute(colecaoDTO)
+    fun saveColecao(@RequestBody colecaoDTO: ColecaoDTO): ResponseEntity<ColecaoResponseDTO> {
+        val result = saveColecao.execute(colecaoDTO)
+
+        return ResponseEntity.ok(result)
     }
     @GetMapping("/list")
     fun listColecao()
-            : ResponseEntity<List<ColecaoDTO>>{
+            : ResponseEntity<List<ColecaoResponseDTO>>{
 
         val listAll = listColecao.execute()
 
 
         return ResponseEntity.ok(
             listAll.map { colecao ->
-                ColecaoDTO(
+                ColecaoResponseDTO(
                     colecao.id,
-                    colecao.nome,
-                    colecao.ano)
+                    colecao.descricao,
+                    colecao.anoCoelecao?.ano
+                )
                      }
         )
     }

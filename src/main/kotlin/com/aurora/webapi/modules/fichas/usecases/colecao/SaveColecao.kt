@@ -1,6 +1,7 @@
 package com.aurora.webapi.modules.fichas.usecases.colecao
 
 import com.aurora.webapi.modules.fichas.ColecaoDTO
+import com.aurora.webapi.modules.fichas.ColecaoResponseDTO
 import com.aurora.webapi.modules.fichas.converter.ColecaoConverter
 import com.aurora.webapi.modules.fichas.service.colecao.ColecaoService
 import org.springframework.stereotype.Service
@@ -10,7 +11,7 @@ class SaveColecao(
     val colecaoService: ColecaoService
 ) {
 
-    fun execute(colecaoDTO: ColecaoDTO): ColecaoDTO{
+    fun execute(colecaoDTO: ColecaoDTO): ColecaoResponseDTO{
         val colecao = ColecaoConverter.toEntity(colecaoDTO)
         val colecaoDTO = ColecaoConverter.toDTO(colecaoService.save(colecao))
         return  colecaoDTO
