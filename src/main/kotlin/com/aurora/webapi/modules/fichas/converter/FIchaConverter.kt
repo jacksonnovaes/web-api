@@ -1,30 +1,59 @@
 package com.aurora.webapi.modules.fichas.converter
 
+import com.aurora.webapi.modules.fichas.ArtigoDTO
 import com.aurora.webapi.modules.fichas.ColecaoDTO
 import com.aurora.webapi.modules.fichas.ComposicaoDTO
 import com.aurora.webapi.modules.fichas.FichaDTO
+import com.aurora.webapi.modules.fichas.FichaReponseDTO
+import com.aurora.webapi.modules.fichas.FornecedorDTO
 import com.aurora.webapi.modules.fichas.infra.entity.FichaEntity
+import java.time.LocalDateTime
 
 object FichaConverter {
 
     fun toEntity(ficha: FichaDTO): FichaEntity {
+
         return FichaEntity(
-            id = null,
-            numeroFicha = ficha.numeroFicha,
-            notaFiscal = ficha.notaFiscal,
+            id = ficha.id,
+            numeroFicha = ficha.numeroFicha.toString(),
+            notaFiscal = ficha.notaFiscal.toString(),
             dataEntrada = ficha.dataEntrada,
+            dataRegistro = LocalDateTime.now(),
             colecao = ColecaoConverter.toEntity(ColecaoDTO.onlyId(ficha.colecaoId)),
-            composicao = ComposicaoConverter.toEntity(ComposicaoDTO.onlyId(ficha.composicaoId))
+            composicao = ComposicaoConverter.toEntity(ComposicaoDTO.onlyId(ficha.composicaoId)),
+            fornecedor = FornecedorConverter.toEntity(FornecedorDTO.onlyId(ficha.fornecedorId)),
+            largura = ficha.largura,
+            artigo = ArtigoConverter.toEntity(ArtigoDTO.onlyId(ficha.artigoId))
         )
     }
 
     fun toDTO(entity: FichaEntity): FichaDTO {
         return FichaDTO(
-            numeroFicha = entity.numeroFicha,
-            notaFiscal = entity.notaFiscal,
+            id = entity.id,
+            numeroFicha = entity.numeroFicha.toInt(),
+            notaFiscal = entity.notaFiscal.toInt(),
             dataEntrada = entity.dataEntrada,
-            colecaoId = ColecaoConverter.toDomain(entity.colecao).id,
-            composicaoId = ComposicaoConverter.toDomain(entity.composicao).id
+            colecaoId = ColecaoConverter.toDTO(entity.colecao).id,
+            artigoId = ArtigoConverter.toDTO(entity.artigo).id,
+            anoColecaoId = AnoColecaoConverter.toDTO(entity.colecao.anoCoelecao).id,
+            composicaoId = ComposicaoConverter.toDTO(entity.composicao).id,
+            fornecedorId = FornecedorConverter.toDTO(entity.fornecedor).id,
+            largura = entity.largura,
+        )
+    }
+
+    fun toResponseDTO(entity: FichaEntity): FichaReponseDTO {
+        return FichaReponseDTO(
+            id = entity.id,
+            numeroFicha = entity.numeroFicha.toInt(),
+            notaFiscal = entity.notaFiscal.toInt(),
+            dataEntrada = entity.dataEntrada,
+            artigo = entity.artigo.nome,
+            colecao = entity.colecao.descricao,
+            anoColecao = entity.colecao.anoCoelecao?.ano ?: "",
+            composicao = entity.composicao.descricao,
+            fornecedor = entity.fornecedor.nome,
+            largura = entity.largura,
         )
     }
 

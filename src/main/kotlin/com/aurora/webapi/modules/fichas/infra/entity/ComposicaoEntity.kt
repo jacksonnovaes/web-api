@@ -12,8 +12,6 @@ data class ComposicaoEntity(
     val id: Long? = null,
     @Column(name = "descricao")
     val descricao: String,
-    @Column(name = "cor")
-    val cor: String,
     @JsonIgnore
     @OneToMany(mappedBy = "composicao", cascade = [CascadeType.ALL])
     val fichas: List<FichaEntity> = emptyList()

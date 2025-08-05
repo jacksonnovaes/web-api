@@ -4,11 +4,28 @@ import java.time.LocalDate
 
 data class FichaDTO(
     val id: Long? = null,
-    val numeroFicha: String,
-    val notaFiscal: String,
-    val dataEntrada: LocalDate,
+    val numeroFicha: Int,
+    val notaFiscal: Int,
+    val dataEntrada: LocalDate?,
+    val largura: Float,
+    val artigoId: Long?,
     val colecaoId: Long?,
-    val composicaoId: Long?
-) {
+    val anoColecaoId: Long?,
+    val composicaoId: Long?,
+    val fornecedorId: Long?
+)
 
-}
+data class FichaReponseDTO(
+    val id: Long? = null,
+    val numeroFicha: Int,
+    val notaFiscal: Int,
+    val dataEntrada: LocalDate?,
+    val largura: Float,
+    val artigo: String,
+    val colecao: String,
+    val anoColecao: String,
+    val composicao: String,
+    val fornecedor: String
+)
+
+

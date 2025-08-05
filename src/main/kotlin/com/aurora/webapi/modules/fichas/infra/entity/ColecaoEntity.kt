@@ -10,12 +10,13 @@ import jakarta.persistence.*
 data class ColecaoEntity(
 
     @Id @GeneratedValue(strategy =  GenerationType.SEQUENCE, generator = "colecao_seq")
-    @Column(name = "id_colecao")
+    @Column(name = "id")
     val id: Long? = null,
     @Column(name = "descricao")
-    val nome: String,
-    @Column(name = "ano_colecao")
-    val ano: Int,
+    val descricao: String,
+    @ManyToOne
+    @JoinColumn(name = "id_ano_colecao")
+    val anoCoelecao: AnoColecaoEntity? = null,
     @JsonIgnore
     @OneToMany(mappedBy = "colecao")
     val fichas: List<FichaEntity> = emptyList()
