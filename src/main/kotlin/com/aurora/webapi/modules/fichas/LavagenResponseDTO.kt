@@ -1,23 +1,18 @@
 package com.aurora.webapi.modules.fichas
 
-data class ArtigoResponseDTO(
-    val id: Long? = null,
-    val nome: String,
-    val categoria: String,
-    val instrucoes: List<LavagenRespondeDTO>? = emptyList(),
-
-    )
-data class LavagenRespondeDTO(
+data class LavagenResponseDTO(
     val id: Long? = null,
     val descricao: String,
     val code: Int,
-    val imagem: ByteArray
-) {
+    val imagem: ByteArray,
+    val lavagemCategoria : String?
+
+){
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as LavagenRespondeDTO
+        other as LavagenResponseDTO
 
         if (id != other.id) return false
         if (code != other.code) return false
@@ -34,4 +29,5 @@ data class LavagenRespondeDTO(
         result = 31 * result + imagem.contentHashCode()
         return result
     }
+
 }

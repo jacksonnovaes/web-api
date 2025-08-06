@@ -36,6 +36,7 @@ class ArtigoController(
                 ArtigoResponseDTO(
                     artigo.id,
                     artigo.nome,
+                    artigo.categotia.nome,
                     artigo.instrucions?.map { it
                         LavagenRespondeDTO(
                             id=it.id,
