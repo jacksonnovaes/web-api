@@ -41,7 +41,11 @@ class SecurityConfig(
 
     )
 
-    val APUBLIC_MATCHERS = arrayOf(
+    val ADMIN_MATCHERS = arrayOf(
+        "/"
+    )
+
+    val EMPLOYEE_MATCHERS = arrayOf(
         "/"
     )
     @Bean

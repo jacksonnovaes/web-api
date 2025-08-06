@@ -22,10 +22,12 @@ object ArtigoConverter {
         return ArtigoResponseDTO(
             id = entity.id,
             nome = entity.nome,
+            categoria = entity.categotia.nome,
             instrucoes = entity.instrucions?.map { it
                 LavagenRespondeDTO(
                 it.id,
                     it.descricao,
+
                     it.code,
                     it.imagem
                 )
