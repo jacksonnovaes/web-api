@@ -70,13 +70,38 @@ class WebApiApplication(
 		val anoColecao2025 = anoColecaoRepository.save(ano2027)
 		val anoColecao2026 = anoColecaoRepository.save(ano2026)
 
-		val categoriaLavagem = CategoriaLavagemEntity(
+		val categoriaLavagem1 = CategoriaLavagemEntity(
 			id = null,
 			descricao = "lavagens",
 
 		)
+		val categoriaLavagem2 = CategoriaLavagemEntity(
+			id = null,
+			descricao = "alvejamento",
 
-		val categoriaLavagemSaved = categoriaLagamRepository.save(categoriaLavagem)
+			)
+		val categoriaLavagem3 = CategoriaLavagemEntity(
+			id = null,
+			descricao = "secagem",
+
+			)
+		val categoriaLavagem4 = CategoriaLavagemEntity(
+			id = null,
+			descricao = "passadoria",
+
+			)
+		val categoriaLavagem5 = CategoriaLavagemEntity(
+			id = null,
+			descricao = "Limpeza profissional",
+
+			)
+
+
+		val categoriaLavagemSaved1 = categoriaLagamRepository.save(categoriaLavagem1)
+		val categoriaLavagemSaved2 = categoriaLagamRepository.save(categoriaLavagem2)
+		val categoriaLavagemSaved3 = categoriaLagamRepository.save(categoriaLavagem3)
+		val categoriaLavagemSaved4 = categoriaLagamRepository.save(categoriaLavagem4)
+		val categoriaLavagemSaved5 = categoriaLagamRepository.save(categoriaLavagem5)
 		val employee = Employee(
 			id = null,
 			nome = "Jackson",
@@ -93,7 +118,7 @@ class WebApiApplication(
 			descricao = "nao passar",
 			code  = 1,
 			imagem =  hexToByteArray(hexImage),
-			categoria = categoriaLavagemSaved
+			categoria = categoriaLavagemSaved1
 		)
 
 
@@ -110,7 +135,7 @@ class WebApiApplication(
 			descricao = "nao lavar",
 			code  = 1,
 			imagem = hexToByteArray(hexImage2),
-			categoria = categoriaLavagem
+			categoria = categoriaLavagem1
 		)
 
 		val instricoesSalvas = lavagemRepository.saveAll(listOf(instricoes, instricoes2))
