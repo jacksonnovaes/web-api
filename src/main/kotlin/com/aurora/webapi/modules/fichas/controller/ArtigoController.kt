@@ -8,7 +8,9 @@ import com.aurora.webapi.modules.fichas.usecases.artigo.ListArtigos
 import com.aurora.webapi.modules.fichas.usecases.artigo.SaveArtigo
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -47,5 +49,16 @@ class ArtigoController(
                     }
             )
         })
+    }
+
+    @PutMapping("/atualizar/{id}")
+    fun updateFicha(@PathVariable id: Long, @RequestBody artigoDTO: ArtigoDTO) {
+        val artigo = ArtigoDTO(
+            id = id,
+            nome = artigoDTO.nome,
+            instrucoes = artigoDTO.instrucoes,
+            categoriaId = artigoDTO.categoriaId
+        )
+        saveArtigo.execute(artigo)
     }
 }

@@ -16,7 +16,7 @@ class ArtigoService (
 
     override fun buscarPorId(id: Long): ArtigoEntity {
         return artigoRepository.findById(id)
-            .orElseThrow { IllegalArgumentException("Lavagem com ID $id não encontrada") }
+            .orElseThrow { IllegalArgumentException("Artigo com ID $id não encontrada") }
     }
 
     override fun buscarTodos(): List<ArtigoEntity> {

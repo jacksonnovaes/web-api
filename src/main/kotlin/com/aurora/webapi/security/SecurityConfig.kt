@@ -57,7 +57,8 @@ class SecurityConfig(
             .authorizeHttpRequests { authorize ->
                 authorize
                     .requestMatchers(*PUBLIC_MATCHERS).permitAll()
-                 //   .requestMatchers(*APUBLIC_MATCHERS).authenticated()
+                    .requestMatchers(*ADMIN_MATCHERS).hasRole("")
+                    .requestMatchers(*EMPLOYEE_MATCHERS).hasRole("")
                     .anyRequest().authenticated()
             }
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter::class.java)

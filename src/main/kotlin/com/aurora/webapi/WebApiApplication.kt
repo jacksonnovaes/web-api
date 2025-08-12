@@ -27,6 +27,8 @@ import com.aurora.webapi.modules.fichas.infra.repositories.CategoriaRepository
 import com.aurora.webapi.modules.fichas.infra.repositories.FichaRepository
 import com.aurora.webapi.modules.fichas.infra.repositories.FornecedorRepository
 import com.aurora.webapi.modules.fichas.infra.repositories.LavagemRepository
+import com.aurora.webapi.modules.usuarios.infra.entity.Role
+import com.aurora.webapi.modules.usuarios.infra.entity.enums.Profiles
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -52,11 +54,36 @@ class WebApiApplication(
 
 	override fun run(vararg args: String?) {
 
+		val employee = Employee(
+			id = null,
+			nome = "Jackson",
+			lastName = "Bispo de oliveira",
+			documentId = "39219796848",
+			userId = null
+		)
+
+// 2) cria o user usando o nome do employee
 		val user = User(
 			login = "jackson.novaes@live.com",
-			pass = passwordEncoder.encode("11223344")
+			pass = passwordEncoder.encode("11223344"),
+			roles = setOf(Role(Profiles.FICHA.role),
+						  Role( Profiles.ARTIGO.role),
+						  Role( Profiles.FORNECEDOR.role),
+						  Role( Profiles.COLECAO.role),
+				),
+			name = "${employee.nome} ${employee.lastName}"
 		)
-		val userSaved  = userRepository.save(user)
+
+		val userSaved = userRepository.save(user)
+
+		val employeeToSave = Employee(
+			id = null,
+			nome = employee.nome,
+			lastName = employee.lastName,
+			documentId = employee.documentId,
+			userId = userSaved.id
+		)
+		employeeRepository.save(employeeToSave)
 
 		val ano2027 = AnoColecaoEntity(
 			null,
@@ -102,14 +129,7 @@ class WebApiApplication(
 		val categoriaLavagemSaved3 = categoriaLagamRepository.save(categoriaLavagem3)
 		val categoriaLavagemSaved4 = categoriaLagamRepository.save(categoriaLavagem4)
 		val categoriaLavagemSaved5 = categoriaLagamRepository.save(categoriaLavagem5)
-		val employee = Employee(
-			id = null,
-			nome = "Jackson",
-			lastName = "Bispo de oliveira",
-			documentId = "39219796848",
-			userId = userSaved.id
 
-		)
 		val hexImage = """
   89504e470d0a1a0a0000000d494844520000002a0000002a0806000000c5c3c95b000000017352474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000b1100000b11017f645f910000001974455874536f6674776172650041646f626520496d616765526561647971c9653c000002a5494441545847ed984b8f0d411886db2d71272e41dc1211096221828d482c2c58f805c40fe01f8825d6125b0921d85ab1c0c6ed0fd8103b3193b8240871bf3c6f57d7f8ba4e4dcda939e774cfa29fe44955f5f4e59baefebabf3a4547c70c6756d57a96e2569c5d8edae11b3ec79fe568124ee2df96fd8a87b14678e796556d9bccc7f5aefb9f70ea4fe125d72d7ee063fc8073b46144fcc2557800fd8d3b81d75d378e02f553701917a1d00946a558894fd15ffb38d6f03bc6d0ddfce2bac59f112adee3b8ebc649059accba21a338928f572a503fed163d4bfb5153154349b007f59a8bb101f7e1927294412ad04d55eb5136dec2077805d7a045e3ab781f6f6218cc0ebc8bfafb596dc82115e8dcaaf528f083b8100fe166b4acc3dda857dc110c676417eec4c5b817c3f3274905aaecb3ac40ffdceaa51ca2c4d057452809c3e3edd8efe7d1b16f5db7243c361968c82bfceeba253d279b82a9f6ff5cb5a227b17202fd88bf5d7724d8583656ed043981e6ec3b287a8e6b3479f11cfc876082b602b55fa5be6832505b00696af59aeb9be906aa0cceba2360137135ea75d737d30d741eea4b95c3cbaa15439dfad47b4f5f9fb5aedb37031539a940c36fb945cf5b6e311d16e959a40255a59422f7cb3410a9407393655092773c3799ecc9c2136becb7c52e6aafa57eb84f58a8d4c8095453bdc0754bc23baeb12f986345f727d44251a8c4d3a2ce925c8a8409a1eafba8eb963f02a850f6281065aed6374ff006eae21e7f475ee01dbc873618153563f80e75de4768518daa3a563c4415e8936257a1b7b5a1414ea3bff6396db0cca464eaa9982ca94097576d536ca9da2861e6d95f4a54715fc4d798b5bec940d32cb6e331d42a559cc733ae1bc73e276d7a016be4bc9e9aa467c9134efd36d4f4abe8d07fd6066ff01a3e2b471d1d1dc3a428fe01d566c4467e3beee70000000049454e44ae426082
 """.trim().replace("\n", "").replace(" ", "")
