@@ -5,7 +5,7 @@ import com.aurora.webapi.modules.fichas.ArtigoResponseDTO
 import com.aurora.webapi.modules.fichas.CategoriaDTO
 import com.aurora.webapi.modules.fichas.LavagenRespondeDTO
 import com.aurora.webapi.modules.fichas.infra.entity.ArtigoEntity
-import com.aurora.webapi.modules.fichas.infra.entity.LavagenEntity
+import com.aurora.webapi.modules.fichas.infra.entity.LavagemEntity
 
 object ArtigoConverter {
 
@@ -13,7 +13,7 @@ object ArtigoConverter {
         return ArtigoEntity(
             id = entity.id,
             nome = entity.nome,
-            instrucions = entity.instrucoes?.map { LavagenEntity(id = it, descricao = "", code = 0, imagem = ByteArray(0), categoria = null) } ?: emptyList(),
+            instrucions = entity.instrucoes?.map { LavagemEntity(id = it, descricao = "", code = 0, imagem = ByteArray(0), categoria = null) } ?: emptyList(),
             categotia = CategoriaConverter.toEntity(CategoriaDTO.onlyId(entity.categoriaId))
         )
     }

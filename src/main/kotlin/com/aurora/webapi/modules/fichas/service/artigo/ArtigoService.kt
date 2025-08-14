@@ -3,15 +3,17 @@ package com.aurora.webapi.modules.fichas.service.artigo
 import com.aurora.webapi.modules.fichas.infra.entity.ArtigoEntity
 import com.aurora.webapi.modules.fichas.infra.repositories.ArtigoRepository
 import com.aurora.webapi.modules.fichas.service.CrudService
+import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 
 @Service
+
 class ArtigoService (
     private val artigoRepository: ArtigoRepository
 ) : CrudService<ArtigoEntity> {
-
-    override fun save(artigo: ArtigoEntity): ArtigoEntity {
-        return artigoRepository.save(artigo)
+    @Transactional
+    override fun save(entity: ArtigoEntity): ArtigoEntity {
+        return artigoRepository.save(entity)
     }
 
     override fun buscarPorId(id: Long): ArtigoEntity {
