@@ -10,7 +10,6 @@ data class CategoriaEntity(
     @Id @GeneratedValue(strategy =  GenerationType.SEQUENCE, generator = "categoria_seq")
     @Column(name = "id")
     val id: Long? = null,
-
     val nome: String,
 ) {
 

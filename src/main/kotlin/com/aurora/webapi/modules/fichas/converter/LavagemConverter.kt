@@ -2,15 +2,14 @@ package com.aurora.webapi.modules.fichas.converter
 
 import com.aurora.webapi.modules.fichas.FornecedorDTO
 import com.aurora.webapi.modules.fichas.LavagenDTO
-import com.aurora.webapi.modules.fichas.LavagenRespondeDTO
 import com.aurora.webapi.modules.fichas.infra.entity.CategoriaLavagemEntity
 import com.aurora.webapi.modules.fichas.infra.entity.FornecedorEntity
-import com.aurora.webapi.modules.fichas.infra.entity.LavagenEntity
+import com.aurora.webapi.modules.fichas.infra.entity.LavagemEntity
 
 object LavagemConverter {
 
-    fun toEntity(lavagemDTO: LavagenDTO): LavagenEntity {
-        return LavagenEntity(
+    fun toEntity(lavagemDTO: LavagenDTO): LavagemEntity {
+        return LavagemEntity(
             id = lavagemDTO.id,
             descricao = lavagemDTO.descricao,
             code = lavagemDTO.code,

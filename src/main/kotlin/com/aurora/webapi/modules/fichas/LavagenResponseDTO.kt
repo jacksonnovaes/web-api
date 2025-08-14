@@ -4,7 +4,7 @@ data class LavagenResponseDTO(
     val id: Long? = null,
     val descricao: String,
     val code: Int,
-    val imagem: ByteArray,
+    val imagem: ByteArray?,
     val lavagemCategoria : String?
 
 ){
