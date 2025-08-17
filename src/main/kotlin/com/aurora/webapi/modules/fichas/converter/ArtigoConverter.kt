@@ -5,6 +5,7 @@ import com.aurora.webapi.modules.fichas.ArtigoResponseDTO
 import com.aurora.webapi.modules.fichas.CategoriaDTO
 import com.aurora.webapi.modules.fichas.LavagenRespondeDTO
 import com.aurora.webapi.modules.fichas.infra.entity.ArtigoEntity
+import com.aurora.webapi.modules.fichas.infra.entity.CategoriaEntity
 import com.aurora.webapi.modules.fichas.infra.entity.LavagemEntity
 
 object ArtigoConverter {
@@ -22,7 +23,10 @@ object ArtigoConverter {
         return ArtigoResponseDTO(
             id = entity.id,
             nome = entity.nome,
-            categoria = entity.categotia.nome,
+            categoriaDTO = CategoriaDTO(
+                id = entity.categotia.id,
+                nome = entity.categotia.nome
+            ),
             instrucoes = entity.instrucions?.map { it
                 LavagenRespondeDTO(
                 it.id,

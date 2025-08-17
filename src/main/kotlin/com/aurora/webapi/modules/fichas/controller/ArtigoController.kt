@@ -2,6 +2,7 @@ package com.aurora.webapi.modules.fichas.controller
 
 import com.aurora.webapi.modules.fichas.ArtigoDTO
 import com.aurora.webapi.modules.fichas.ArtigoResponseDTO
+import com.aurora.webapi.modules.fichas.CategoriaDTO
 import com.aurora.webapi.modules.fichas.LavagenDTO
 import com.aurora.webapi.modules.fichas.LavagenRespondeDTO
 import com.aurora.webapi.modules.fichas.usecases.artigo.ListArtigos
@@ -38,7 +39,10 @@ class ArtigoController(
                 ArtigoResponseDTO(
                     artigo.id,
                     artigo.nome,
-                    artigo.categotia.nome,
+                    CategoriaDTO(
+                        id = artigo.categotia.id,
+                        nome = artigo.categotia.nome
+                    ),
                     artigo.instrucions?.map { it
                         LavagenRespondeDTO(
                             id=it.id,
