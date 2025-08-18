@@ -9,6 +9,7 @@ data class FichaDTO(
     val dataEntrada: LocalDate?,
     val largura: Float,
     val artigoId: Long?,
+    val artigo: String?,
     val colecaoId: Long?,
     val anoColecaoId: Long?,
     val composicaoId: Long?,

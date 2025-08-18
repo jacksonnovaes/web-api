@@ -203,6 +203,7 @@ class WebApiApplication(
 			composicaoId = composicaoSaved.id,
 			dataEntrada = LocalDate.now().minusDays(2),
 			artigoId = artigoSaved.id,
+			artigo = artigoSaved.nome,
 			colecaoId = colecaoSaved.id,
 			anoColecaoId = colecaoSaved.anoCoelecao?.id,
 			fornecedorId = fornecedorSaved.id,

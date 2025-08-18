@@ -35,6 +35,7 @@ object FichaConverter {
             dataEntrada = entity.dataEntrada,
             colecaoId = ColecaoConverter.toDTO(entity.colecao).id,
             artigoId = ArtigoConverter.toDTO(entity.artigo).id,
+            artigo = ArtigoConverter.toDTO(entity.artigo).nome,
             anoColecaoId = AnoColecaoConverter.toDTO(entity.colecao.anoCoelecao).id,
             composicaoId = ComposicaoConverter.toDTO(entity.composicao).id,
             fornecedorId = FornecedorConverter.toDTO(entity.fornecedor).id,
