@@ -2,6 +2,7 @@ package com.aurora.webapi.modules.fichas.controller
 
 import com.aurora.webapi.modules.fichas.FichaDTO
 import com.aurora.webapi.modules.fichas.FichaReponseDTO
+import com.aurora.webapi.modules.fichas.usecases.fichas.FindAllFichasByArtigo
 import com.aurora.webapi.modules.fichas.usecases.fichas.ListAllFichas
 import com.aurora.webapi.modules.fichas.usecases.fichas.RemoveFicha
 import com.aurora.webapi.modules.fichas.usecases.fichas.SaveFicha
@@ -26,7 +27,8 @@ class FichaController(
     private final val saveFicha: SaveFicha,
     private final val updateFicha: UpdateFicha,
     private final val removeFicha: RemoveFicha,
-    private final val listAllFichas: ListAllFichas
+    private final val listAllFichas: ListAllFichas,
+    private final val findAllFichasByArtigo: FindAllFichasByArtigo
 ) {
 
     @PostMapping("/save")
@@ -61,5 +63,18 @@ class FichaController(
        ) {
         removeFicha.execute(id = id)
     }
+    @GetMapping("/search/{nome}")
+    fun getlFichsByName(
+        @RequestParam(value = "page", defaultValue = "0") page: Int,
+        @RequestParam(value = "linesPerPage", defaultValue = "24") linesPerPage: Int,
+        @RequestParam(value = "order", defaultValue = "dt_entrada") orderBy: String,
+        @RequestParam(value = "direction", defaultValue = "ASC") direction: String,
+        @PathVariable nome: String)
+            : ResponseEntity<PageResponse<FichaReponseDTO>>{
 
+        val listAll = findAllFichasByArtigo.execute(nome,page, linesPerPage, orderBy, direction)
+
+
+        return ResponseEntity.ok(listAll.toPageResponse())
+    }
 }

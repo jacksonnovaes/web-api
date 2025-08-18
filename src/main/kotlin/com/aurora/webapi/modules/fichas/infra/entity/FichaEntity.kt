@@ -22,6 +22,8 @@ data class FichaEntity(
     val dataRegistro: LocalDateTime = LocalDateTime.now(),
     @Column(name = "largura")
     val largura: Float,
+
+
     @ManyToOne
     @JoinColumn(name = "id_colecao")
     val colecao: ColecaoEntity,
