@@ -8,6 +8,7 @@ import com.aurora.webapi.modules.fichas.FornecedorDTO
 import com.aurora.webapi.modules.fichas.converter.ComposicaoConverter
 import com.aurora.webapi.modules.fichas.converter.FichaConverter
 import com.aurora.webapi.modules.fichas.converter.FornecedorConverter
+import com.aurora.webapi.modules.fichas.enums.StatusEnum
 import com.aurora.webapi.modules.fichas.infra.entity.*
 import com.aurora.webapi.modules.fichas.infra.repositories.*
 import com.aurora.webapi.modules.usuarios.infra.entity.Employee
@@ -207,7 +208,8 @@ class WebApiApplication(
 			colecaoId = colecaoSaved.id,
 			anoColecaoId = colecaoSaved.anoCoelecao?.id,
 			fornecedorId = fornecedorSaved.id,
-			largura = 100.00F
+			largura = 100.00F,
+			status = StatusEnum.ACTIVE
 		)
 		fichaRepository.save(FichaConverter.toEntity(ficha))
 

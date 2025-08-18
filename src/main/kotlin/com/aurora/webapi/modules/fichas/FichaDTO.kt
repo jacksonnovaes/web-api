@@ -1,5 +1,6 @@
 package com.aurora.webapi.modules.fichas
 
+import com.aurora.webapi.modules.fichas.enums.StatusEnum
 import java.time.LocalDate
 
 data class FichaDTO(
@@ -13,7 +14,8 @@ data class FichaDTO(
     val colecaoId: Long?,
     val anoColecaoId: Long?,
     val composicaoId: Long?,
-    val fornecedorId: Long?
+    val fornecedorId: Long?,
+    val status: StatusEnum = StatusEnum.ACTIVE
 )
 
 data class FichaReponseDTO(
@@ -24,6 +26,7 @@ data class FichaReponseDTO(
     val largura: Float,
     val artigoId: Long?,
     val artigo: String,
+    val status: StatusEnum?,
     val colecao: String,
     val anoColecao: String,
     val composicao: String,

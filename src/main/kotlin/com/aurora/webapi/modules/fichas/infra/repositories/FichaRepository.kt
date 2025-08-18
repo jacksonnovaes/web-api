@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
+import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -22,6 +23,7 @@ interface FichaRepository: JpaRepository<FichaEntity, Long>{
                          ficha.dt_registro,
                          ficha.nr_ficha, 
                          ficha.nota_fiscal,
+                         ficha.status,
                          fornecedor.nome,categoria.nome, 
                          colecao.descricao,
                          anocolecao.ano_colecao,
@@ -32,9 +34,10 @@ interface FichaRepository: JpaRepository<FichaEntity, Long>{
 			            INNER JOIN TB_ANO_COLECAO anocolecao on anocolecao.ID = colecao.ID_ANO_COLECAO
                         INNER JOIN TB_COMPOSICAO  composicao ON composicao.ID_COMPOSICAO = ficha.ID_COMPOSICAO
                         INNER JOIN TB_FORNECEDOR  fornecedor ON fornecedor.ID = ficha.ID_FORNECEDOR
+                        WHERE ficha.status = :status
                         """
     )
-    override fun findAll(pageable: Pageable): Page<FichaEntity>
+    fun findAllFichas(@Param("status") status: String,pageable: Pageable): Page<FichaEntity>
 
     @Query(nativeQuery = true,
         value = """SELECT
@@ -48,6 +51,7 @@ interface FichaRepository: JpaRepository<FichaEntity, Long>{
                          ficha.dt_registro,
                          ficha.nr_ficha, 
                          ficha.nota_fiscal,
+                         ficha.status,
                          fornecedor.nome,categoria.nome, 
                          colecao.descricao,
                          anocolecao.ano_colecao,
@@ -58,8 +62,9 @@ interface FichaRepository: JpaRepository<FichaEntity, Long>{
 			            INNER JOIN TB_ANO_COLECAO anocolecao on anocolecao.ID = colecao.ID_ANO_COLECAO
                         INNER JOIN TB_COMPOSICAO  composicao ON composicao.ID_COMPOSICAO = ficha.ID_COMPOSICAO
                         INNER JOIN TB_FORNECEDOR  fornecedor ON fornecedor.ID = ficha.ID_FORNECEDOR
-                        WHERE artigo.nome ilike %?1%
+                        WHERE artigo.nome ILIKE %:artigo% and  ficha.status = :status
                         """
     )
-     fun findByNameArtigo( artigo: String,pageable: Pageable): Page<FichaEntity>
+     fun findByNameArtigo( @Param("artigo") artigo: String,
+                           @Param("status") status: String, pageable: Pageable): Page<FichaEntity>
 }

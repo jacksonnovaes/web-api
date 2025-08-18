@@ -31,8 +31,5 @@ class AnoColecaoService(
     override fun deletar(id: Long) {
         colecaoRepository.deleteById(id)
     }
-    fun buscaPorAnoColecao(ano: String): AnoColecaoEntity {
-        return colecaoRepository.findByAno(ano)
-    }
 
 }

@@ -12,4 +12,5 @@ interface CrudService<T> {
     fun buscarPorIds(ids: List<Long>): List<T>
 
     fun deletar(id: Long)
+
 }

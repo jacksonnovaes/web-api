@@ -72,7 +72,7 @@ class FichaController(
         @PathVariable nome: String)
             : ResponseEntity<PageResponse<FichaReponseDTO>>{
 
-        val listAll = findAllFichasByArtigo.execute(nome,page, linesPerPage, orderBy, direction)
+            val listAll = findAllFichasByArtigo.execute(nome,page, linesPerPage, orderBy, direction)
 
 
         return ResponseEntity.ok(listAll.toPageResponse())
