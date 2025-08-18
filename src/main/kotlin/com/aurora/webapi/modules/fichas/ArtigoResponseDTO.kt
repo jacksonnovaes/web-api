@@ -1,10 +1,13 @@
 package com.aurora.webapi.modules.fichas
 
+import com.aurora.webapi.modules.fichas.enums.StatusEnum
+
 data class ArtigoResponseDTO(
     val id: Long? = null,
     val nome: String,
     val categoriaDTO: CategoriaDTO,
     val instrucoes: List<LavagenRespondeDTO>? = emptyList(),
+    val status: StatusEnum?
 
     )
 data class LavagenRespondeDTO(

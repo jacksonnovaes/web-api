@@ -148,7 +148,8 @@ class WebApiApplication(
 			id = null,
 			nome = "Alfaiataria RVERTON",
 			instrucions = instricoesSalvas,
-			categotia = categoriaSaved
+			categotia = categoriaSaved,
+			status = StatusEnum.ACTIVE
 		)
 		val composocao = ComposicaoDTO(
 			id = null,

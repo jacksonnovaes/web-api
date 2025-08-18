@@ -7,7 +7,7 @@ import com.aurora.webapi.modules.fichas.service.artigo.ArtigoService
 import org.springframework.stereotype.Service
 
 @Service
-class AutlizarArtigo(
+class  AutlizarArtigo(
     val artigoService: ArtigoService
 
 ) {

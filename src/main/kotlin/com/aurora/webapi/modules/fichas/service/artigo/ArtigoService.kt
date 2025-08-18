@@ -1,5 +1,6 @@
 package com.aurora.webapi.modules.fichas.service.artigo
 
+import com.aurora.webapi.modules.fichas.enums.StatusEnum
 import com.aurora.webapi.modules.fichas.infra.entity.ArtigoEntity
 import com.aurora.webapi.modules.fichas.infra.repositories.ArtigoRepository
 import com.aurora.webapi.modules.fichas.service.CrudService
@@ -22,7 +23,9 @@ class ArtigoService (
     }
 
     override fun buscarTodos(): List<ArtigoEntity> {
-        return artigoRepository.findAll()
+
+       return artigoRepository.findAllByStatus(StatusEnum.valueOf("ACTIVE"))
+
     }
 
     override fun buscarPorIds(ids: List<Long>): List<ArtigoEntity> {

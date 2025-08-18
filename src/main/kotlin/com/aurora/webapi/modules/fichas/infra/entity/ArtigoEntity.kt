@@ -1,5 +1,6 @@
 package com.aurora.webapi.modules.fichas.infra.entity
 
+import com.aurora.webapi.modules.fichas.enums.StatusEnum
 import com.fasterxml.jackson.annotation.JsonBackReference
 import jakarta.persistence.*
 
@@ -11,6 +12,9 @@ data class ArtigoEntity(
     @Column(name = "id")
     val id: Long? = null,
     val nome: String,
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)  // <-- salva "ACTIVE" ou "INACTIVE"
+    val status: StatusEnum?,
     @ManyToMany
     @JoinTable(
         name = "artigo_lavagem",
