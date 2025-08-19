@@ -4,9 +4,11 @@ import com.aurora.webapi.modules.fichas.ArtigoDTO
 import com.aurora.webapi.modules.fichas.ArtigoResponseDTO
 import com.aurora.webapi.modules.fichas.CategoriaDTO
 import com.aurora.webapi.modules.fichas.LavagenRespondeDTO
+import com.aurora.webapi.modules.fichas.usecases.artigo.BuscaArtigoByName
 import com.aurora.webapi.modules.fichas.usecases.artigo.ListArtigos
 import com.aurora.webapi.modules.fichas.usecases.artigo.RemoverArtigo
 import com.aurora.webapi.modules.fichas.usecases.artigo.SaveArtigo
+import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
@@ -22,7 +25,9 @@ import org.springframework.web.bind.annotation.RestController
 class ArtigoController(
     private final val saveArtigo: SaveArtigo,
     private final val listArtigos: ListArtigos,
-    private final val removerArtigo: RemoverArtigo
+    private final val removerArtigo: RemoverArtigo,
+    private final val buscaArtigoByName: BuscaArtigoByName
+
 
 ) {
 
@@ -35,11 +40,17 @@ class ArtigoController(
     fun removeFicha(@PathVariable id: Long) {
         removerArtigo.execute(id)
     }
-    @GetMapping("/list")
-    fun listArtigos()
-            : ResponseEntity<List<ArtigoResponseDTO>>{
 
-        val listAll = listArtigos.execute()
+    @GetMapping("/list")
+    fun listArtigos(
+        @RequestParam(value = "page", defaultValue = "0") page: Int,
+        @RequestParam(value = "linesPerPage", defaultValue = "24") linesPerPage: Int,
+        @RequestParam(value = "order", defaultValue = "id") orderBy: String,
+        @RequestParam(value = "direction", defaultValue = "ASC") direction: String,
+    )
+            : ResponseEntity<Page<ArtigoResponseDTO?>?> {
+
+        val listAll = listArtigos.execute(page, linesPerPage, orderBy, direction)
 
 
         return ResponseEntity.ok(
@@ -62,7 +73,43 @@ class ArtigoController(
                     },
                     status = artigo.status
                 )
-        })
+            })
+    }
+
+    @GetMapping("/search/{nome}")
+    fun searchArtigos(
+        @PathVariable nome: String,
+        @RequestParam(value = "page", defaultValue = "0") page: Int,
+        @RequestParam(value = "linesPerPage", defaultValue = "24") linesPerPage: Int,
+        @RequestParam(value = "order", defaultValue = "dt_entrada") orderBy: String,
+        @RequestParam(value = "direction", defaultValue = "ASC") direction: String,
+    )
+            : ResponseEntity<Page<ArtigoResponseDTO>> {
+
+        val listAll = buscaArtigoByName.execute(nome,page, linesPerPage, orderBy, direction)
+
+
+        return ResponseEntity.ok(
+            listAll.map { artigo ->
+                ArtigoResponseDTO(
+                    artigo.id,
+                    artigo.nome,
+                    CategoriaDTO(
+                        id = artigo.categotia.id,
+                        nome = artigo.categotia.nome
+                    ),
+                    artigo.instrucions?.map {
+                        it
+                        LavagenRespondeDTO(
+                            id = it.id,
+                            descricao = it.descricao,
+                            code = it.code,
+                            imagem = it.imagem
+                        )
+                    },
+                    status = artigo.status
+                )
+            })
     }
 
     @PutMapping("/atualizar/{id}")

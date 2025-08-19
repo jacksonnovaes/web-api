@@ -5,6 +5,8 @@ import com.aurora.webapi.modules.fichas.infra.entity.ArtigoEntity
 import com.aurora.webapi.modules.fichas.infra.repositories.ArtigoRepository
 import com.aurora.webapi.modules.fichas.service.CrudService
 import jakarta.transaction.Transactional
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -22,10 +24,14 @@ class ArtigoService (
             .orElseThrow { IllegalArgumentException("Artigo com ID $id não encontrada") }
     }
 
+    override fun buscarTodos(pageable: Pageable): Page<ArtigoEntity> {
+
+        return artigoRepository.findAllByStatus(StatusEnum.valueOf("ACTIVE"), pageable)
+
+    }
+
     override fun buscarTodos(): List<ArtigoEntity> {
-
-       return artigoRepository.findAllByStatus(StatusEnum.valueOf("ACTIVE"))
-
+        return artigoRepository.findAll()
     }
 
     override fun buscarPorIds(ids: List<Long>): List<ArtigoEntity> {
@@ -35,4 +41,14 @@ class ArtigoService (
     override fun deletar(id: Long) {
         artigoRepository.deleteById(id)
     }
+
+    override fun buscarPorNomeDescricao(
+        termo: String,
+        status: String,
+        pageable: Pageable
+    ): Page<ArtigoEntity> {
+        return artigoRepository.findAllByNomeAndStatus(pageable, termo, status)
+    }
+
+
 }

@@ -1,46 +1,36 @@
 package com.aurora.webapi.modules.fichas.controller
 
 import com.aurora.webapi.modules.fichas.CategoriaLavagenDTO
-import com.aurora.webapi.modules.fichas.LavagenDTO
-import com.aurora.webapi.modules.fichas.infra.entity.CategoriaLavagemEntity
-import com.aurora.webapi.modules.fichas.service.lavagem.CategoriaLagameService
-import com.aurora.webapi.modules.fichas.usecases.lavagem.ListLavagem
-import com.aurora.webapi.modules.fichas.usecases.lavagem.SaveLavagem
+import com.aurora.webapi.modules.fichas.usecases.lavagem.ListCategoriaLavagem
+import com.aurora.webapi.modules.fichas.usecases.lavagem.SaveCategoriaLavagem
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.multipart.MultipartFile
+import org.springframework.web.bind.annotation.*
 
 
 @RestController
 @RequestMapping("/v1/lavagemCategoria")
 class CategoriaLavagemController(
-        val categoriaLagameService: CategoriaLagameService
+        val listCategoriaLavagem: ListCategoriaLavagem,
+        val saveCategoriaLavagem: SaveCategoriaLavagem
 ) {
 
 
     @PostMapping("/save")
     fun saveFicha(
-                @RequestBody dto: CategoriaLavagenDTO
+                @RequestBody categoriaLavagem: CategoriaLavagenDTO
     ) {
-        val lavagem = CategoriaLavagemEntity(
-            id = null,
-            descricao = dto.descricao
-        )
-        categoriaLagameService.save(lavagem)
+        saveCategoriaLavagem.execute(categoriaLavagem)
     }
     @GetMapping("/listAll")
-    fun listCategoriaLavagem(): List<CategoriaLavagenDTO> {
-       return categoriaLagameService.buscarTodos().map { it ->
+    fun listCategoriaLavagem(
+    ): ResponseEntity<List<CategoriaLavagenDTO>> {
+       val response = listCategoriaLavagem.execute().map { it ->
             CategoriaLavagenDTO(
                 it.id,
                 it.descricao
             )
         }
+        return ResponseEntity.ok(response)
     }
 
 
