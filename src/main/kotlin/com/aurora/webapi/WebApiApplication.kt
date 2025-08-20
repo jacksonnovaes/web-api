@@ -210,7 +210,7 @@ class WebApiApplication(
 			anoColecaoId = colecaoSaved.anoCoelecao?.id,
 			fornecedorId = fornecedorSaved.id,
 			largura = 100.00F,
-			status = StatusEnum.ACTIVE
+			status = StatusEnum.ACTIVE.value
 		)
 		fichaRepository.save(FichaConverter.toEntity(ficha))
 

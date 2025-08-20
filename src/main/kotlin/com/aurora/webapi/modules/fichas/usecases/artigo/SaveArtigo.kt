@@ -14,7 +14,7 @@ class SaveArtigo(
 ) {
     @Transactional
     fun execute(@Valid artigoDTO: ArtigoDTO): ArtigoResponseDTO {
-        val artigo = ArtigoConverter.toEntity(artigoDTO)
+                val artigo = ArtigoConverter.toEntity(artigoDTO)
         return ArtigoConverter.toDTO(artigoService.save(artigo))
     }
 }

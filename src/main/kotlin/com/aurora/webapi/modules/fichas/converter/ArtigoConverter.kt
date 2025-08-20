@@ -4,6 +4,7 @@ import com.aurora.webapi.modules.fichas.ArtigoDTO
 import com.aurora.webapi.modules.fichas.ArtigoResponseDTO
 import com.aurora.webapi.modules.fichas.CategoriaDTO
 import com.aurora.webapi.modules.fichas.LavagenRespondeDTO
+import com.aurora.webapi.modules.fichas.enums.StatusEnum
 import com.aurora.webapi.modules.fichas.infra.entity.ArtigoEntity
 import com.aurora.webapi.modules.fichas.infra.entity.LavagemEntity
 
@@ -23,7 +24,7 @@ object ArtigoConverter {
                 )
             } ?: emptyList(),
             categotia = CategoriaConverter.toEntity(CategoriaDTO.onlyId(entity.categoriaId)),
-            status = entity.status
+            status = StatusEnum.fromValue(entity.status)
         )
     }
 
@@ -45,7 +46,7 @@ object ArtigoConverter {
                     it.imagem
                 )
             },
-            status = entity.status
+            status = entity.status?.value
         )
     }
 

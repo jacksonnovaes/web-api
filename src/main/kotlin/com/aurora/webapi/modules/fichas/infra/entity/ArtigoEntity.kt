@@ -13,8 +13,8 @@ data class ArtigoEntity(
     val id: Long? = null,
     val nome: String,
     @Column(name = "status")
-    @Enumerated(EnumType.STRING)  // <-- salva "ACTIVE" ou "INACTIVE"
-    val status: StatusEnum?,
+    @Enumerated(EnumType.STRING)
+    val status: StatusEnum? = StatusEnum.ACTIVE,
     @ManyToMany
     @JoinTable(
         name = "artigo_lavagem",

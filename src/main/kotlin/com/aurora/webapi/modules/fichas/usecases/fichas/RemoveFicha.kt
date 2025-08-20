@@ -29,7 +29,7 @@ class RemoveFicha(
             anoColecaoId = ficha.colecao.anoCoelecao?.id,
             composicaoId = ficha.composicao.id,
             fornecedorId = ficha.fornecedor.id,
-            status = StatusEnum.INACTIVE
+            status = StatusEnum.INACTIVE.value
         )
         FichaConverter.toDTO(fIchaService.save(FichaConverter.toEntity(fichaDTO)))
     }

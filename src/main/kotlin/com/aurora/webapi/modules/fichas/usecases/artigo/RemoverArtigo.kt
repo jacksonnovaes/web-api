@@ -23,7 +23,7 @@ class  RemoverArtigo(
             nome = artigo.nome,
             instrucoes = artigo.instrucions?.map { it.id } as List<Long?>,
             categoriaId = artigo.categotia.id,
-            status = StatusEnum.INACTIVE
+            status = StatusEnum.INACTIVE.value
         )
         artigoService.save(ArtigoConverter.toEntity(artigoDTO))
     }

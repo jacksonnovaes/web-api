@@ -15,7 +15,7 @@ data class FichaDTO(
     val anoColecaoId: Long?,
     val composicaoId: Long?,
     val fornecedorId: Long?,
-    val status: StatusEnum = StatusEnum.ACTIVE
+    val status: String = StatusEnum.ACTIVE.value
 )
 
 data class FichaReponseDTO(

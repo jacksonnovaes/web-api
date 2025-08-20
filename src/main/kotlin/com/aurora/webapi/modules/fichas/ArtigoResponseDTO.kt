@@ -7,7 +7,7 @@ data class ArtigoResponseDTO(
     val nome: String,
     val categoriaDTO: CategoriaDTO,
     val instrucoes: List<LavagenRespondeDTO>? = emptyList(),
-    val status: StatusEnum?
+    val status: String?
 
     )
 data class LavagenRespondeDTO(

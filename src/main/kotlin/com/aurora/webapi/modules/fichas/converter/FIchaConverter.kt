@@ -6,6 +6,7 @@ import com.aurora.webapi.modules.fichas.ComposicaoDTO
 import com.aurora.webapi.modules.fichas.FichaDTO
 import com.aurora.webapi.modules.fichas.FichaReponseDTO
 import com.aurora.webapi.modules.fichas.FornecedorDTO
+import com.aurora.webapi.modules.fichas.enums.StatusEnum
 import com.aurora.webapi.modules.fichas.infra.entity.FichaEntity
 import java.time.LocalDateTime
 
@@ -19,7 +20,7 @@ object FichaConverter {
             notaFiscal = ficha.notaFiscal.toString(),
             dataEntrada = ficha.dataEntrada,
             dataRegistro = LocalDateTime.now(),
-            status = ficha.status,
+            status = StatusEnum.fromValue(ficha.status)!!,
             colecao = ColecaoConverter.toEntity(ColecaoDTO.onlyId(ficha.colecaoId)),
             composicao = ComposicaoConverter.toEntity(ComposicaoDTO.onlyId(ficha.composicaoId)),
             fornecedor = FornecedorConverter.toEntity(FornecedorDTO.onlyId(ficha.fornecedorId)),
@@ -37,7 +38,7 @@ object FichaConverter {
             colecaoId = ColecaoConverter.toDTO(entity.colecao).id,
             artigoId = ArtigoConverter.toDTO(entity.artigo).id,
             artigo = ArtigoConverter.toDTO(entity.artigo).nome,
-            status = entity.status,
+            status = entity.status.value,
             anoColecaoId = AnoColecaoConverter.toDTO(entity.colecao.anoCoelecao).id,
             composicaoId = ComposicaoConverter.toDTO(entity.composicao).id,
             fornecedorId = FornecedorConverter.toDTO(entity.fornecedor).id,

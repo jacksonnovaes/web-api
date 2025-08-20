@@ -8,6 +8,7 @@ import com.aurora.webapi.modules.fichas.usecases.artigo.BuscaArtigoByName
 import com.aurora.webapi.modules.fichas.usecases.artigo.ListArtigos
 import com.aurora.webapi.modules.fichas.usecases.artigo.RemoverArtigo
 import com.aurora.webapi.modules.fichas.usecases.artigo.SaveArtigo
+import com.aurora.webapi.utils.PageResponse
 import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import toPageResponse
 
 @RestController
 @RequestMapping("/v1/artigos")
@@ -48,7 +50,7 @@ class ArtigoController(
         @RequestParam(value = "order", defaultValue = "id") orderBy: String,
         @RequestParam(value = "direction", defaultValue = "ASC") direction: String,
     )
-            : ResponseEntity<Page<ArtigoResponseDTO?>?> {
+            : ResponseEntity<PageResponse<ArtigoResponseDTO?>?> {
 
         val listAll = listArtigos.execute(page, linesPerPage, orderBy, direction)
 
@@ -71,9 +73,9 @@ class ArtigoController(
                             imagem = it.imagem
                         )
                     },
-                    status = artigo.status
+                    status = artigo.status?.value
                 )
-            })
+            }.toPageResponse())
     }
 
     @GetMapping("/search/{nome}")
@@ -107,7 +109,7 @@ class ArtigoController(
                             imagem = it.imagem
                         )
                     },
-                    status = artigo.status
+                    status = artigo.status?.value
                 )
             })
     }
