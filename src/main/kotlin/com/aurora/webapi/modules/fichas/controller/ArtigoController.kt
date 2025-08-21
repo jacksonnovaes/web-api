@@ -47,7 +47,7 @@ class ArtigoController(
     fun listArtigos(
         @RequestParam(value = "page", defaultValue = "0") page: Int,
         @RequestParam(value = "linesPerPage", defaultValue = "24") linesPerPage: Int,
-        @RequestParam(value = "order", defaultValue = "id") orderBy: String,
+        @RequestParam(value = "order", defaultValue = "nome") orderBy: String,
         @RequestParam(value = "direction", defaultValue = "ASC") direction: String,
     )
             : ResponseEntity<PageResponse<ArtigoResponseDTO?>?> {
@@ -83,7 +83,7 @@ class ArtigoController(
         @PathVariable nome: String,
         @RequestParam(value = "page", defaultValue = "0") page: Int,
         @RequestParam(value = "linesPerPage", defaultValue = "24") linesPerPage: Int,
-        @RequestParam(value = "order", defaultValue = "dt_entrada") orderBy: String,
+        @RequestParam(value = "order", defaultValue = "nome") orderBy: String,
         @RequestParam(value = "direction", defaultValue = "ASC") direction: String,
     )
             : ResponseEntity<Page<ArtigoResponseDTO>> {

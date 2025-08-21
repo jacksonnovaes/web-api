@@ -1,7 +1,5 @@
 package com.aurora.webapi.modules.fichas
 
-import com.aurora.webapi.modules.fichas.enums.StatusEnum
-
 data class ArtigoResponseDTO(
     val id: Long? = null,
     val nome: String,

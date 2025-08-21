@@ -37,7 +37,7 @@ interface FichaRepository: JpaRepository<FichaEntity, Long>{
                         WHERE ficha.status = :status
                         """
     )
-    fun findAllFichas(@Param("status") status: String,pageable: Pageable): Page<FichaEntity>
+    fun  findAllFichas(@Param("status") status: String,pageable: Pageable): Page<FichaEntity>
 
     @Query(nativeQuery = true,
         value = """SELECT
