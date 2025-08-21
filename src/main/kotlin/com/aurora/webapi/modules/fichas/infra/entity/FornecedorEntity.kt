@@ -1,7 +1,10 @@
 package com.aurora.webapi.modules.fichas.infra.entity
 
+import com.aurora.webapi.modules.fichas.enums.StatusEnum
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
@@ -18,5 +21,7 @@ data class FornecedorEntity(
     val nome: String,
     @JsonManagedReference
     @OneToMany(mappedBy = "fornecedor")
-    val fichas: List<FichaEntity>
+    val fichas: List<FichaEntity>,
+    @Enumerated(EnumType.STRING)
+    val status: StatusEnum = StatusEnum.ACTIVE
 )

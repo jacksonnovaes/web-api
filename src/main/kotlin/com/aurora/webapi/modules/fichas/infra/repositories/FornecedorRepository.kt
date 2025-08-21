@@ -1,13 +1,28 @@
 package com.aurora.webapi.modules.fichas.infra.repositories
 
+import com.aurora.webapi.modules.fichas.enums.StatusEnum
 import com.aurora.webapi.modules.fichas.infra.entity.FornecedorEntity
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Query
+import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 
 @Repository
 interface FornecedorRepository: JpaRepository<FornecedorEntity, Long>{
-
-    override fun findAll(): List<FornecedorEntity>
-
-    fun findByNome(name: String): List<FornecedorEntity>
+    @Query("""
+    SELECT f 
+    FROM FornecedorEntity f 
+    WHERE f.status = :status
+    """)
+    fun findAll(@Param("status")statusEnum: StatusEnum,pageable: Pageable): Page<FornecedorEntity>
+    @Query("""
+    SELECT f 
+    FROM FornecedorEntity f 
+    WHERE lower(f.nome) LIKE lower(concat('%', :nome, '%'))
+      AND f.status = :status
+    """)
+    fun findByNome(@Param("nome") nome: String, @Param("status")statusEnum: StatusEnum, pageable: Pageable): Page<FornecedorEntity>
 }

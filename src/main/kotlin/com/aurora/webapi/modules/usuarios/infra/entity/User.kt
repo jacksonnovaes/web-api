@@ -1,9 +1,15 @@
 package com.aurora.webapi.modules.usuarios.infra.entity
 
+import com.aurora.webapi.modules.usuarios.infra.entity.Role
+import jakarta.persistence.CollectionTable
+import jakarta.persistence.ElementCollection
+import jakarta.persistence.Embedded
 import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
 import jakarta.persistence.SequenceGenerator
 import jakarta.persistence.Table
 import org.springframework.security.core.GrantedAuthority
@@ -19,13 +25,16 @@ class User(
     val id: Long? = null,
     val login: String,
     val pass: String,
-    val roles: Set<String>? = emptySet()
-
-): UserDetails {
+    val name: String,
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_roles", joinColumns = [JoinColumn(name = "user_id")])
+    val roles: Set<Role>? = emptySet()
+    ): UserDetails {
 
     override fun getAuthorities(): Collection<GrantedAuthority> {
         val authorities = mutableListOf<GrantedAuthority>()
         authorities.add(SimpleGrantedAuthority("ROLE_USER"))
+        authorities.add(SimpleGrantedAuthority("ROLE_ADMIN"))
 
         roles?.forEach { role ->
             authorities.add(SimpleGrantedAuthority("ROLE_$role"))
@@ -40,5 +49,6 @@ class User(
     override fun getUsername(): String? {
       return login
     }
+
 
 }

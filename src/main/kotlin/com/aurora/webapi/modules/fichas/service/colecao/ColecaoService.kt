@@ -4,6 +4,8 @@ import com.aurora.webapi.exceptions.EntityNotFoundException
 import com.aurora.webapi.modules.fichas.infra.entity.ColecaoEntity
 import com.aurora.webapi.modules.fichas.infra.repositories.ColecaoRepository
 import com.aurora.webapi.modules.fichas.service.CrudService
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -19,6 +21,10 @@ class ColecaoService(
         return colecaoRepository.findById(id).orElseThrow { throw EntityNotFoundException("colecao nao encontrada") }
     }
 
+    override fun buscarTodos(pageable: Pageable): Page<ColecaoEntity> {
+        return colecaoRepository.findAll(pageable)
+    }
+
     override fun buscarTodos(): List<ColecaoEntity> {
         return colecaoRepository.findAll()
     }
@@ -29,5 +35,13 @@ class ColecaoService(
 
     override fun deletar(id: Long) {
         colecaoRepository.deleteById(id)
+    }
+
+    override fun buscarPorNomeDescricao(
+        termo: String,
+        status: String,
+        pageable: Pageable
+    ): Page<ColecaoEntity> {
+        TODO("Not yet implemented")
     }
 }

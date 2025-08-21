@@ -1,6 +1,5 @@
 package com.aurora.webapi.modules.fichas.controller
 
-import com.aurora.webapi.modules.fichas.CategoriaLavagenDTO
 import com.aurora.webapi.modules.fichas.LavagenDTO
 import com.aurora.webapi.modules.fichas.LavagenResponseDTO
 import com.aurora.webapi.modules.fichas.usecases.lavagem.ListLavagem
@@ -24,6 +23,7 @@ class LavagemController(
 ) {
 
 
+    @OptIn(ExperimentalUnsignedTypes::class)
     @PostMapping("/save/{id}")
     fun saveFicha(@RequestParam descricao: String,
                   @RequestParam code: Int,
@@ -36,7 +36,7 @@ class LavagemController(
             imagem = imagem.bytes,
             lavagemCategoriaID = id
         )
-        saveLavagem.execute(lavagem)
+        saveLavagem.execute(lavagem, imagem)
     }
 
     @PostMapping("/multiple/{id}/save", consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
@@ -58,7 +58,7 @@ class LavagemController(
                     lavagemCategoriaID = id
                 )
 
-                val saved = saveLavagem.execute(lavagem)
+                val saved = saveLavagem.execute(lavagem, file)
 
                 val response = LavagenDTO(
                     saved.id,

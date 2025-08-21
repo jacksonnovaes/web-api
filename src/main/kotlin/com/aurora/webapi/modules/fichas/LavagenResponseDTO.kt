@@ -1,0 +1,33 @@
+package com.aurora.webapi.modules.fichas
+
+data class LavagenResponseDTO(
+    val id: Long? = null,
+    val descricao: String,
+    val code: Int,
+    val imagem: ByteArray?,
+    val lavagemCategoria : String?
+
+){
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as LavagenResponseDTO
+
+        if (id != other.id) return false
+        if (code != other.code) return false
+        if (descricao != other.descricao) return false
+        if (!imagem.contentEquals(other.imagem)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id?.hashCode() ?: 0
+        result = 31 * result + code
+        result = 31 * result + descricao.hashCode()
+        result = 31 * result + imagem.contentHashCode()
+        return result
+    }
+
+}

@@ -3,14 +3,16 @@ package com.aurora.webapi.modules.fichas
 data class ArtigoResponseDTO(
     val id: Long? = null,
     val nome: String,
+    val categoriaDTO: CategoriaDTO,
     val instrucoes: List<LavagenRespondeDTO>? = emptyList(),
+    val status: String?
 
     )
 data class LavagenRespondeDTO(
     val id: Long? = null,
     val descricao: String,
     val code: Int,
-    val imagem: ByteArray
+    val imagem: ByteArray?
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -30,7 +32,7 @@ data class LavagenRespondeDTO(
         var result = id?.hashCode() ?: 0
         result = 31 * result + code
         result = 31 * result + descricao.hashCode()
-        result = 31 * result + imagem.contentHashCode()
+        result = 31 * result + imagem.hashCode()
         return result
     }
 }

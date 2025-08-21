@@ -1,5 +1,6 @@
 package com.aurora.webapi.modules.fichas.infra.entity
 
+import com.aurora.webapi.modules.fichas.enums.StatusEnum
 import com.fasterxml.jackson.annotation.JsonBackReference
 import jakarta.persistence.*
 import java.time.LocalDate
@@ -22,6 +23,9 @@ data class FichaEntity(
     val dataRegistro: LocalDateTime = LocalDateTime.now(),
     @Column(name = "largura")
     val largura: Float,
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)  // <-- salva "ACTIVE" ou "INACTIVE"
+    val status: StatusEnum = StatusEnum.ACTIVE,
     @ManyToOne
     @JoinColumn(name = "id_colecao")
     val colecao: ColecaoEntity,

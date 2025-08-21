@@ -11,7 +11,7 @@ object ColecaoConverter {
         return ColecaoEntity(
             id = colecao.id,
             descricao = colecao.nome,
-            anoCoelecao = null,
+            anoCoelecao = AnoColecaoConverter.toEntity(AnoColecaoDTO.onlyId(colecao.anoColecaoId)),
             fichas = emptyList(),
         )
     }

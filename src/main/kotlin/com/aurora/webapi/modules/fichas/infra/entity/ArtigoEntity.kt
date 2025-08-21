@@ -1,18 +1,8 @@
 package com.aurora.webapi.modules.fichas.infra.entity
 
+import com.aurora.webapi.modules.fichas.enums.StatusEnum
 import com.fasterxml.jackson.annotation.JsonBackReference
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.JoinColumns
-import jakarta.persistence.JoinTable
-import jakarta.persistence.ManyToMany
-import jakarta.persistence.ManyToOne
-import jakarta.persistence.SequenceGenerator
-import jakarta.persistence.Table
+import jakarta.persistence.*
 
 @Entity
 @Table(name = "tb_artigo")
@@ -22,12 +12,15 @@ data class ArtigoEntity(
     @Column(name = "id")
     val id: Long? = null,
     val nome: String,
+    @Column(name = "status")
+    @Enumerated(EnumType.STRING)
+    val status: StatusEnum? = StatusEnum.ACTIVE,
     @ManyToMany
     @JoinTable(
         name = "artigo_lavagem",
         joinColumns = [JoinColumn(name = "id_artigo")],
         inverseJoinColumns = [JoinColumn(name = "id_lavagem")])
-    val instrucions: List<LavagenEntity>? = emptyList(),
+    val instrucions: List<LavagemEntity>? = emptyList(),
     @ManyToOne
     @JoinColumn(name = "id_categoria")
     @JsonBackReference

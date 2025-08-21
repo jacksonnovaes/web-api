@@ -2,17 +2,18 @@ package com.aurora.webapi.modules.fichas.usecases.lavagem
 
 import com.aurora.webapi.modules.fichas.LavagenDTO
 import com.aurora.webapi.modules.fichas.infra.entity.CategoriaLavagemEntity
-import com.aurora.webapi.modules.fichas.infra.entity.LavagenEntity
+import com.aurora.webapi.modules.fichas.infra.entity.LavagemEntity
 import com.aurora.webapi.modules.fichas.infra.repositories.CategoriaLagamRepository
-import com.aurora.webapi.modules.fichas.infra.repositories.LavagemRepository
+import com.aurora.webapi.modules.fichas.service.lavagem.LavagenService
 import org.springframework.stereotype.Service
+import org.springframework.web.multipart.MultipartFile
 
 @Service
 class SaveLavagem(
-    val lavagemRepository: LavagemRepository,
+    val lavagemService: LavagenService,
     val categoriaLagamRepository: CategoriaLagamRepository
 ) {
-    fun execute(lavagenDTO: LavagenDTO): LavagenEntity {
+    fun execute(lavagenDTO: LavagenDTO, file: MultipartFile): LavagemEntity {
         val categoria = lavagenDTO.lavagemCategoriaID?.let { id ->
             categoriaLagamRepository.findById(id).orElseGet {
                 // Se não encontrar, salva uma nova categoria com o ID e descricao vazia
@@ -24,16 +25,18 @@ class SaveLavagem(
                 )
             }
         }
+        val imagemBytes = file.bytes
 
-        val lavagem = LavagenEntity(
+
+        val lavagem = LavagemEntity(
             id = null,
             descricao = lavagenDTO.descricao,
             code = lavagenDTO.code,
-            imagem = lavagenDTO.imagem,
+            imagem = imagemBytes,
             categoria = categoria
         )
 
-        return lavagemRepository.save(lavagem)
+        return lavagemService.salvarLavagen(lavagem)
     }
 
 }
