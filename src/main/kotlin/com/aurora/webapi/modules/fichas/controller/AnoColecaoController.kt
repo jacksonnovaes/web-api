@@ -4,9 +4,9 @@ import com.aurora.webapi.modules.fichas.AnoColecaoDTO
 import com.aurora.webapi.modules.fichas.AnoColecaoResponseDTO
 import com.aurora.webapi.modules.fichas.ColecaoDTO
 import com.aurora.webapi.modules.fichas.ColecaoResponseDTO
-import com.aurora.webapi.modules.fichas.usecases.colecao.ListAnoColecao
+import com.aurora.webapi.modules.fichas.usecases.anoColecao.ListAnoColecao
 import com.aurora.webapi.modules.fichas.usecases.colecao.ListColecao
-import com.aurora.webapi.modules.fichas.usecases.colecao.SaveAnoColecao
+import com.aurora.webapi.modules.fichas.usecases.anoColecao.SaveAnoColecao
 import com.aurora.webapi.modules.fichas.usecases.colecao.SaveColecao
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -41,7 +41,7 @@ class AnoColecaoController(
                     colecao.id,
                     colecao.ano,
                 )
-                     }
+            }
         )
     }
 }
