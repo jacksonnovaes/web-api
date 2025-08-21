@@ -1,9 +1,7 @@
-package com.aurora.webapi.modules.fichas.usecases.colecao
+package com.aurora.webapi.modules.fichas.usecases.anoColecao
 
 import com.aurora.webapi.modules.fichas.infra.entity.AnoColecaoEntity
-import com.aurora.webapi.modules.fichas.infra.entity.ColecaoEntity
 import com.aurora.webapi.modules.fichas.service.colecao.AnoColecaoService
-import com.aurora.webapi.modules.fichas.service.colecao.ColecaoService
 import org.springframework.stereotype.Service
 
 @Service

@@ -14,6 +14,11 @@ import org.springframework.stereotype.Repository
 interface ArtigoRepository: JpaRepository<ArtigoEntity, Long>{
 
     fun findAllByStatus(status: StatusEnum, pageable: Pageable): Page<ArtigoEntity>
-
-    fun findAllByNomeAndStatus(pageable: Pageable, @Param("nome") nome: String,@Param("status") status: String): Page<ArtigoEntity>
+    @Query("""
+    SELECT a 
+    FROM ArtigoEntity a 
+    WHERE lower(a.nome) LIKE lower(concat('%', :nome, '%'))
+      AND a.status = :status
+""")
+    fun findAllByNomeAndStatus(pageable: Pageable, @Param("nome") nome: String,@Param("status") status: StatusEnum): Page<ArtigoEntity>
 }

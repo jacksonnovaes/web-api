@@ -26,7 +26,7 @@ class ArtigoService (
 
     override fun buscarTodos(pageable: Pageable): Page<ArtigoEntity> {
 
-        return artigoRepository.findAllByStatus(StatusEnum.valueOf("ACTIVE"), pageable)
+        return artigoRepository.findAllByStatus(StatusEnum.ACTIVE, pageable)
 
     }
 
@@ -47,7 +47,7 @@ class ArtigoService (
         status: String,
         pageable: Pageable
     ): Page<ArtigoEntity> {
-        return artigoRepository.findAllByNomeAndStatus(pageable, termo, status)
+        return artigoRepository.findAllByNomeAndStatus(pageable, termo, StatusEnum.ACTIVE)
     }
 
 
