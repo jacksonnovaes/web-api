@@ -3,24 +3,21 @@ package com.aurora.webapi.modules.fichas.controller
 import com.aurora.webapi.modules.fichas.ColecaoDTO
 import com.aurora.webapi.modules.fichas.ColecaoResponseDTO
 import com.aurora.webapi.modules.fichas.usecases.colecao.ListColecao
+import com.aurora.webapi.modules.fichas.usecases.colecao.RemoveColecao
 import com.aurora.webapi.modules.fichas.usecases.colecao.SaveColecao
 import com.aurora.webapi.modules.fichas.usecases.colecao.UpdateColecao
+import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/v1/colecao")
 class ColecaoController(
         private val saveColecao: SaveColecao,
         private val listColecao: ListColecao,
-        private val updateColecao: UpdateColecao
-) {
+        private val updateColecao: UpdateColecao,
+        private val removeColecao: RemoveColecao
+){
 
     @PostMapping("/save")
     fun saveColecao(@RequestBody colecaoDTO: ColecaoDTO): ResponseEntity<ColecaoResponseDTO> {
@@ -38,10 +35,15 @@ class ColecaoController(
         return ResponseEntity.ok(result)
     }
     @GetMapping("/list")
-    fun listColecao()
-            : ResponseEntity<List<ColecaoResponseDTO>>{
+    fun listColecao(
+        @RequestParam(value = "page", defaultValue = "0") page: Int,
+        @RequestParam(value = "linesPerPage", defaultValue = "24") linesPerPage: Int,
+        @RequestParam(value = "order", defaultValue = "descricao") orderBy: String,
+        @RequestParam(value = "direction", defaultValue = "ASC") direction: String,
+    )
+            : ResponseEntity<Page<ColecaoResponseDTO>>{
 
-        val listAll = listColecao.execute()
+        val listAll = listColecao.execute(page, linesPerPage, orderBy, direction)
 
 
         return ResponseEntity.ok(
@@ -49,9 +51,16 @@ class ColecaoController(
                 ColecaoResponseDTO(
                     colecao.id,
                     colecao.descricao,
-                    colecao.anoCoelecao?.ano
+                    colecao.anoCoelecao?.ano,
+                    colecao.anoCoelecao?.id
                 )
                      }
         )
+    }
+
+    @DeleteMapping("/remove/{id}")
+    fun removeColecao(
+        @PathVariable id: Long) {
+        removeColecao.execute(id)
     }
 }
