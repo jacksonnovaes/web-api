@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneOffset
+import java.util.Date
 
 @Service
 class TokenService(
@@ -20,11 +21,16 @@ class TokenService(
 
     fun generateWebToken(user: User): String {
         return try {
+
+            val roleNames = user.roles?.map { it.name }
             val algorithm = Algorithm.HMAC256(secret)
             JWT.create()
                 .withIssuer("Api storeFood")
                 .withSubject(user.login)
                 .withJWTId(user.id.toString())
+                .withClaim("roles", roleNames)
+                .withClaim("name", user.name)
+                .withExpiresAt(Date.from(expirationDate()))
                 .sign(algorithm)
         } catch (ex: JWTCreationException) {
             throw RuntimeException("Erro ao gerar o token JWT", ex)
@@ -45,7 +51,7 @@ class TokenService(
     }
 
     private fun expirationDate(): Instant {
-        return LocalDateTime.now().plusSeconds(30)
+        return LocalDateTime.now().plusSeconds(3600)
             .toInstant(ZoneOffset.of("-03:00"))
     }
 }

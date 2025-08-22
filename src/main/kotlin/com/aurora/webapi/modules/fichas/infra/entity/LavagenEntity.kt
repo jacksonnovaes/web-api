@@ -1,28 +1,18 @@
 package com.aurora.webapi.modules.fichas.infra.entity
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.JoinColumn
-import jakarta.persistence.Lob
-import jakarta.persistence.ManyToOne
-import jakarta.persistence.SequenceGenerator
-import jakarta.persistence.Table
+import jakarta.persistence.*
 
 @Entity
 @Table(name = "tb_lavagem")
 @SequenceGenerator(name = "lavagem_seq", sequenceName = "lavagem_seq", allocationSize = 1)
-data class LavagenEntity(
+data class LavagemEntity(
     @Id @GeneratedValue(strategy =  GenerationType.SEQUENCE, generator = "lavagem_seq")
     @Column(name = "id_lavagem")
     val id: Long? = null,
     val descricao: String,
     val code: Int,
-    @Lob
-    @Column(name = "imagem", columnDefinition = "BYTEA") // PostgreSQL usa BYTEA
-    val imagem: ByteArray,
+    @Column(name = "imagem", columnDefinition = "bytea")
+    val imagem: ByteArray?,
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     val categoria: CategoriaLavagemEntity?
@@ -31,7 +21,7 @@ data class LavagenEntity(
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as LavagenEntity
+        other as LavagemEntity
 
         if (id != other.id) return false
         if (code != other.code) return false

@@ -3,6 +3,7 @@ package com.aurora.webapi.modules.fichas.usecases.fichas
 import com.aurora.webapi.modules.fichas.FichaDTO
 import com.aurora.webapi.modules.fichas.FichaReponseDTO
 import com.aurora.webapi.modules.fichas.converter.FichaConverter
+import com.aurora.webapi.modules.fichas.enums.StatusEnum
 import com.aurora.webapi.modules.fichas.infra.repositories.FichaRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
@@ -15,7 +16,8 @@ class ListAllFichas(
 ){
     fun execute(page: Int, linesPerPge: Int, orderBy: String, direction: String): Page<FichaReponseDTO> {
         val pageRequest = PageRequest.of(page, linesPerPge, Sort.Direction.valueOf(direction), orderBy);
-        val listAllFichas = fichaRepository.findAll(pageRequest)
+        val findAll = fichaRepository.findAllFichas(StatusEnum.ACTIVE.name, pageRequest)
+        val listAllFichas = findAll
             .map {
                 FichaConverter.toResponseDTO(it)
             }

@@ -27,12 +27,28 @@ class SecurityConfig(
         "/swagger-ui.html",
         "/swagger-ui/**",
         "/h2/**",
-        "/v1/fichas/**",
+        "/v1/fichas/remove/**",
+        "/v1/fichas/save/**",
+        "/v1/fichas/list/**",
+        "/v1/fichas/update/**",
+        "/v1/fichas/search/**",
         "/api/v1/lavagem/**",
-        "/v1/artigos/**",
-        "/v1/colecao/**",
+        "/v1/artigos/remove/**",
+        "/v1/artigos/atualizar/**",
+        "/v1/artigos/list/**",
+        "/v1/artigos/search/**",
+        "/v1/artigos/save/**",
+        "/v1/colecao/update/**",
+        "/v1/colecao/list/**",
+        "/v1/colecao/save/**",
+        "/v1/colecao/remove/**",
         "/v1/composicao/**",
         "/v1/fornecedor/**",
+        "/v1/fornecedor/list/**",
+        "/v1/fornecedor/search/**",
+        "/v1/fornecedor/save/**",
+        "/v1/fornecedor/update/**",
+        "/v1/fornecedor/remove/**",
         "/v1/categoria/**",
         "/v1/lavagem/**",
         "/v1/lavagem/multiple/**",
@@ -41,7 +57,11 @@ class SecurityConfig(
 
     )
 
-    val APUBLIC_MATCHERS = arrayOf(
+    val ADMIN_MATCHERS = arrayOf(
+        "/"
+    )
+
+    val EMPLOYEE_MATCHERS = arrayOf(
         "/"
     )
     @Bean
@@ -53,7 +73,8 @@ class SecurityConfig(
             .authorizeHttpRequests { authorize ->
                 authorize
                     .requestMatchers(*PUBLIC_MATCHERS).permitAll()
-                 //   .requestMatchers(*APUBLIC_MATCHERS).authenticated()
+                    .requestMatchers(*ADMIN_MATCHERS).hasRole("")
+                    .requestMatchers(*EMPLOYEE_MATCHERS).hasRole("")
                     .anyRequest().authenticated()
             }
             .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter::class.java)

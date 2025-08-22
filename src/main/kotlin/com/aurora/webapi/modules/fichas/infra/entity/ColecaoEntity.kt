@@ -1,6 +1,6 @@
 package com.aurora.webapi.modules.fichas.infra.entity
 
-import com.fasterxml.jackson.annotation.JsonBackReference
+import com.aurora.webapi.modules.fichas.enums.StatusEnum
 import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 
@@ -19,7 +19,9 @@ data class ColecaoEntity(
     val anoCoelecao: AnoColecaoEntity? = null,
     @JsonIgnore
     @OneToMany(mappedBy = "colecao")
-    val fichas: List<FichaEntity> = emptyList()
+    val fichas: List<FichaEntity> = emptyList(),
+    @Enumerated(EnumType.STRING)
+    val status: StatusEnum?
 ) {
 
 }
