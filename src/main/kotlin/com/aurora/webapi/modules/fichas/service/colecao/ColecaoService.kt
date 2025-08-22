@@ -1,6 +1,7 @@
 package com.aurora.webapi.modules.fichas.service.colecao
 
 import com.aurora.webapi.exceptions.EntityNotFoundException
+import com.aurora.webapi.modules.fichas.enums.StatusEnum
 import com.aurora.webapi.modules.fichas.infra.entity.ColecaoEntity
 import com.aurora.webapi.modules.fichas.infra.repositories.ColecaoRepository
 import com.aurora.webapi.modules.fichas.service.CrudService
@@ -22,7 +23,7 @@ class ColecaoService(
     }
 
     override fun buscarTodos(pageable: Pageable): Page<ColecaoEntity> {
-        return colecaoRepository.findAll(pageable)
+        return colecaoRepository.findAll(statusEnum = StatusEnum.ACTIVE, pageable)
     }
 
     override fun buscarTodos(): List<ColecaoEntity> {
@@ -34,7 +35,15 @@ class ColecaoService(
     }
 
     override fun deletar(id: Long) {
-        colecaoRepository.deleteById(id)
+        val colecao = buscarPorId(id)
+        val colecaoUpdate= ColecaoEntity(
+            id = colecao?.id,
+            descricao = colecao!!.descricao,
+            anoCoelecao = colecao.anoCoelecao,
+            fichas = colecao.fichas,
+            status = StatusEnum.INACTIVE
+        )
+        colecaoRepository.save(colecaoUpdate)
     }
 
     override fun buscarPorNomeDescricao(

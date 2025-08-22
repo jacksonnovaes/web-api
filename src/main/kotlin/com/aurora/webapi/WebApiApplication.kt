@@ -165,12 +165,14 @@ class WebApiApplication(
 			id = null,
 			nome = "verao",
 			anoColecaoId = anoColecao2025.id,
+			status = StatusEnum.ACTIVE.name
 		)
 
 		val colecaoDTO2 = ColecaoDTO(
 			id = null,
 			nome = "inverno",
 			anoColecaoId = anoColecao2026.id,
+			status = StatusEnum.ACTIVE.name
 		)
 
 		val fornecedor = FornecedorDTO(
@@ -181,7 +183,8 @@ class WebApiApplication(
 		val colecaoEntity = ColecaoEntity(
 			id = null,
 			descricao = colecaoDTO.nome,
-			anoCoelecao = anoColecao2025
+			anoCoelecao = anoColecao2025,
+			status = StatusEnum.ACTIVE
 		)
 
 
