@@ -1,7 +1,6 @@
 package com.aurora.webapi.modules.fichas.infra.entity
 
 import com.aurora.webapi.modules.fichas.enums.StatusEnum
-import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 

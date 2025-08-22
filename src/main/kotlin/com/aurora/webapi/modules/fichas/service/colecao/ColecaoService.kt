@@ -14,8 +14,8 @@ class ColecaoService(
     val colecaoRepository: ColecaoRepository
 ) : CrudService<ColecaoEntity>{
 
-    override fun save(colecaoEntity: ColecaoEntity): ColecaoEntity {
-        return colecaoRepository.save(colecaoEntity)
+    override fun save(entity: ColecaoEntity): ColecaoEntity {
+        return colecaoRepository.save(entity)
     }
 
     override fun buscarPorId(id: Long): ColecaoEntity? {

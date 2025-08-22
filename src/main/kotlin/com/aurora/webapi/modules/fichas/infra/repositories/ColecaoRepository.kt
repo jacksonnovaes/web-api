@@ -2,7 +2,6 @@ package com.aurora.webapi.modules.fichas.infra.repositories
 
 import com.aurora.webapi.modules.fichas.enums.StatusEnum
 import com.aurora.webapi.modules.fichas.infra.entity.ColecaoEntity
-import com.aurora.webapi.modules.fichas.infra.entity.FornecedorEntity
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository

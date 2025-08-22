@@ -2,7 +2,6 @@ package com.aurora.webapi.modules.fichas.usecases.colecao
 
 import com.aurora.webapi.modules.fichas.ColecaoDTO
 import com.aurora.webapi.modules.fichas.ColecaoResponseDTO
-import com.aurora.webapi.modules.fichas.converter.ColecaoConverter
 import com.aurora.webapi.modules.fichas.enums.StatusEnum
 import com.aurora.webapi.modules.fichas.infra.entity.AnoColecaoEntity
 import com.aurora.webapi.modules.fichas.infra.entity.ColecaoEntity
