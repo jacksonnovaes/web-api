@@ -57,6 +57,7 @@ class WebApiApplication(
 						  Role( Profiles.ARTIGO.role),
 						  Role( Profiles.FORNECEDOR.role),
 						  Role( Profiles.COLECAO.role),
+						  Role( Profiles.COR.role),
 				),
 			name = "${employee.nome} ${employee.lastName}"
 		)
