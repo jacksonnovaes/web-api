@@ -18,7 +18,13 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 class ControllerExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException::class)
-    fun notFound404(): ResponseEntity<Void> {
+    fun notFound404(ex: EntityNotFoundException): ResponseEntity<Void> {
+        val err = StandardError(
+            HttpStatus.BAD_REQUEST.value(),
+            ex.message,
+            System.currentTimeMillis(),
+            null
+        )
         return ResponseEntity.notFound().build()
     }
 
@@ -29,12 +35,12 @@ class ControllerExceptionHandler {
     }
 
     @ExceptionHandler(DataIntegrityException::class)
-    fun dataIntegrity(ex: DataIntegrityException): ResponseEntity<StandardError> {
+    fun dataIntegrity(ex: DataIntegrityException,req: HttpServletRequest): ResponseEntity<StandardError> {
         val err = StandardError(
             HttpStatus.BAD_REQUEST.value(),
             ex.message,
             System.currentTimeMillis(),
-            null
+            req.requestURI
         )
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err)
     }

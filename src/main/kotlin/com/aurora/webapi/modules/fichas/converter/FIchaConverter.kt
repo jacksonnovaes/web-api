@@ -1,13 +1,8 @@
 package com.aurora.webapi.modules.fichas.converter
 
-import com.aurora.webapi.modules.fichas.ArtigoDTO
-import com.aurora.webapi.modules.fichas.ColecaoDTO
-import com.aurora.webapi.modules.fichas.ComposicaoDTO
-import com.aurora.webapi.modules.fichas.FichaDTO
-import com.aurora.webapi.modules.fichas.FichaReponseDTO
-import com.aurora.webapi.modules.fichas.FornecedorDTO
-import com.aurora.webapi.modules.fichas.enums.StatusEnum
-import com.aurora.webapi.modules.fichas.infra.entity.FichaEntity
+import com.aurora.webapi.modules.fichas.*
+import com.aurora.webapi.modules.fichas.adapters.outbound.entities.FichaEntity
+import com.aurora.webapi.modules.fichas.adapters.outbound.entities.enum.StatusEnum
 import java.time.LocalDateTime
 
 object FichaConverter {

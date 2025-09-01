@@ -1,7 +1,7 @@
 package com.aurora.webapi.modules.fichas.service.cor
 
-import com.aurora.webapi.modules.fichas.infra.entity.CorEntity
-import com.aurora.webapi.modules.fichas.infra.repositories.CorRepository
+import com.aurora.webapi.modules.fichas.adapters.outbound.entities.CorEntity
+import com.aurora.webapi.modules.fichas.adapters.outbound.repositories.CorRepository
 import com.aurora.webapi.modules.fichas.service.CrudService
 import jakarta.transaction.Transactional
 import org.springframework.data.domain.Page

@@ -1,7 +1,7 @@
 package com.aurora.webapi.modules.fichas.converter
 
 import com.aurora.webapi.modules.fichas.FornecedorDTO
-import com.aurora.webapi.modules.fichas.infra.entity.FornecedorEntity
+import com.aurora.webapi.modules.fichas.adapters.outbound.entities.FornecedorEntity
 
 object FornecedorConverter {
 
