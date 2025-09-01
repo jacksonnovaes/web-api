@@ -53,7 +53,11 @@ class SecurityConfig(
         "/v1/lavagem/**",
         "/v1/lavagem/multiple/**",
         "/v1/lavagemCategoria/**",
-        "/v1/anoColecao/**"
+        "/v1/anoColecao/**",
+        "/v1/cor/salvar/**",
+        "/v1/cor/list/**",
+        "/v1/cor/list/nome/**",
+        "/v1/cor/update/**"
 
     )
 

@@ -1,10 +1,8 @@
 package com.aurora.webapi.modules.fichas.service.fornecedor
 
 import com.aurora.webapi.exceptions.EntityNotFoundException
-import com.aurora.webapi.modules.fichas.infra.entity.FichaEntity
-import com.aurora.webapi.modules.fichas.infra.entity.FornecedorEntity
-import com.aurora.webapi.modules.fichas.infra.repositories.FichaRepository
-import com.aurora.webapi.modules.fichas.infra.repositories.FornecedorRepository
+import com.aurora.webapi.modules.fichas.adapters.outbound.entities.FornecedorEntity
+import com.aurora.webapi.modules.fichas.adapters.outbound.repositories.FornecedorRepository
 import com.aurora.webapi.modules.fichas.service.CrudService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable

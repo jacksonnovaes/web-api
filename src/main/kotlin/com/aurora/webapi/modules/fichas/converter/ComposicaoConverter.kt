@@ -1,7 +1,7 @@
 package com.aurora.webapi.modules.fichas.converter
 
 import com.aurora.webapi.modules.fichas.ComposicaoDTO
-import com.aurora.webapi.modules.fichas.infra.entity.ComposicaoEntity
+import com.aurora.webapi.modules.fichas.adapters.outbound.entities.ComposicaoEntity
 
 object ComposicaoConverter {
     fun toEntity(composicao: ComposicaoDTO): ComposicaoEntity {

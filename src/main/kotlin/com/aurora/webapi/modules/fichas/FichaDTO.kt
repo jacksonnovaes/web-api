@@ -1,6 +1,6 @@
 package com.aurora.webapi.modules.fichas
 
-import com.aurora.webapi.modules.fichas.enums.StatusEnum
+import com.aurora.webapi.modules.fichas.adapters.outbound.entities.enum.StatusEnum
 import java.time.LocalDate
 
 data class FichaDTO(

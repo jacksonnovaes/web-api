@@ -1,8 +1,8 @@
 package com.aurora.webapi.modules.fichas.service.artigo
 
-import com.aurora.webapi.modules.fichas.enums.StatusEnum
-import com.aurora.webapi.modules.fichas.infra.entity.ArtigoEntity
-import com.aurora.webapi.modules.fichas.infra.repositories.ArtigoRepository
+import com.aurora.webapi.modules.fichas.adapters.outbound.entities.ArtigoEntity
+import com.aurora.webapi.modules.fichas.adapters.outbound.entities.enum.StatusEnum
+import com.aurora.webapi.modules.fichas.adapters.outbound.repositories.ArtigoRepository
 import com.aurora.webapi.modules.fichas.service.CrudService
 import jakarta.transaction.Transactional
 import org.springframework.data.domain.Page
