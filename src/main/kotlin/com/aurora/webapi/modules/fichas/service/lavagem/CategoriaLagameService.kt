@@ -1,8 +1,8 @@
 package com.aurora.webapi.modules.fichas.service.lavagem
 
 import com.aurora.webapi.exceptions.EntityNotFoundException
-import com.aurora.webapi.modules.fichas.infra.entity.CategoriaLavagemEntity
-import com.aurora.webapi.modules.fichas.infra.repositories.CategoriaLagamRepository
+import com.aurora.webapi.modules.fichas.adapters.outbound.entities.CategoriaLavagemEntity
+import com.aurora.webapi.modules.fichas.adapters.outbound.repositories.CategoriaLagamRepository
 import com.aurora.webapi.modules.fichas.service.CrudService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable

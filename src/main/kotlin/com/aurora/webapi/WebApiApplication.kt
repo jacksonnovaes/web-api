@@ -5,12 +5,12 @@ import com.aurora.webapi.modules.fichas.ColecaoDTO
 import com.aurora.webapi.modules.fichas.ComposicaoDTO
 import com.aurora.webapi.modules.fichas.FichaDTO
 import com.aurora.webapi.modules.fichas.FornecedorDTO
+import com.aurora.webapi.modules.fichas.adapters.outbound.entities.*
+import com.aurora.webapi.modules.fichas.adapters.outbound.entities.enum.StatusEnum
+import com.aurora.webapi.modules.fichas.adapters.outbound.repositories.*
 import com.aurora.webapi.modules.fichas.converter.ComposicaoConverter
 import com.aurora.webapi.modules.fichas.converter.FichaConverter
 import com.aurora.webapi.modules.fichas.converter.FornecedorConverter
-import com.aurora.webapi.modules.fichas.enums.StatusEnum
-import com.aurora.webapi.modules.fichas.infra.entity.*
-import com.aurora.webapi.modules.fichas.infra.repositories.*
 import com.aurora.webapi.modules.usuarios.infra.entity.Employee
 import com.aurora.webapi.modules.usuarios.infra.entity.Role
 import com.aurora.webapi.modules.usuarios.infra.entity.User
@@ -25,18 +25,18 @@ import java.time.format.DateTimeFormatter
 
 @SpringBootApplication
 class WebApiApplication(
-	private final val colecaoRepository: ColecaoRepository,
-	private final val composicaoRepository: ComposicaoRepository,
-	private final val employeeRepository: EmployeeRepository,
-	private final val userRepository: UserRepository,
-	private final val fichaRepository: FichaRepository,
-	private final val passwordEncoder: PasswordEncoder,
-	private final val fornecedorRepository: FornecedorRepository,
-	private final val lavagemRepository: LavagemRepository,
-	private final val artigoRepository: ArtigoRepository,
-	private final val categoriaRepository: CategoriaRepository,
-	private final val categoriaLagamRepository: CategoriaLagamRepository,
-	private final val anoColecaoRepository: AnoColecaoRepository
+    private final val colecaoRepository: ColecaoRepository,
+    private final val composicaoRepository: ComposicaoRepository,
+    private final val employeeRepository: EmployeeRepository,
+    private final val userRepository: UserRepository,
+    private final val fichaRepository: FichaRepository,
+    private final val passwordEncoder: PasswordEncoder,
+    private final val fornecedorRepository: FornecedorRepository,
+    private final val lavagemRepository: LavagemRepository,
+    private final val artigoRepository: ArtigoRepository,
+    private final val categoriaRepository: CategoriaRepository,
+    private final val categoriaLagamRepository: CategoriaLagamRepository,
+    private final val anoColecaoRepository: AnoColecaoRepository
 ) : CommandLineRunner {
 
 	override fun run(vararg args: String?) {
@@ -128,8 +128,8 @@ class WebApiApplication(
 
 
 		val categoria = CategoriaEntity(
-			nome = "CHIFON"
-		)
+            nome = "CHIFON"
+        )
 
 		val hexImage2 = """
   89504e470d0a1a0a0000000d494844520000002a0000002a0806000000c5c3c95b000000017352474200aece1ce90000000467414d410000b18f0bfc6105000000097048597300000b1100000b11017f645f910000001974455874536f6674776172650041646f626520496d616765526561647971c9653c00000264494441545847ed964ba84d5118808ff7e37a0e2424252999c82b8f912862a6c8406146c9400674078a890165c2c8c0c4230351ca0051c490880989bc1f4511451edfb7ef3eb773d7d9fb9c7d4ffbb207ebabaf73f6bfd6defbdf6bedf5af5d8b44229148246454fa5b2683701c0e498e5a60c77678917db81a3fe06f2c8b093806bfe101bc811d331e5fe39f01f60a8ec44c8a8ce870dc86b3f197810e71663ea636b20cb7e20f5c880fb0b29c4747757772546136a2895e4b8e2acc0c7c8b9fd057ac89c1e9efffe6055e47abc02a03215549d49277119dfe35e802ee4391555f060e88a3955783ad2673f02ada673e3ec55e8a26ba007dd29938d5403fb1a88fc5bc448d5b437d3f87e1663c8585e9c2c3f81deb85f95f780efbd06a44dddb8fa3c5586ee16d7c87ae502f583616ff9de8f517e14b6c4b379acc4fdc8503f15112e207ca43f4beee866df165fe8c9e70c84006ad2ac6249cd8f337932938bae76f1347d0fb9e4c8e5a6069b88476be89aed646a6e365f4c9971b0870fa9ee03d9c6b206007bec2d3e80886ac45abc0339c66208f2d68928ee85203012662bbee31107010ebeddb0d049c41dbbee03c030126ff08edb3ce401693f131da69bf810c9cf2bde814f90918b204efe31dccda0edd2ecfe2266c2aec2947d11c4e244719588aece0c741de3b54046b615e12455889e6f11c9b0663317e4557f90603e0cdb21c9a9ad56692963d47be9e70a8e7e6b5199f85efd18d603df6d6d1117801dd7dc4697b835eb0083e7d59b890ac182e54133f86d6d6045f5a6f5645fde2efaa8fe80a74347d1a1bfb83d3e3fe9fb5b03aa53187bbe8c28d44229148a432d46a7f0156f6c629e72213810000000049454e44ae426082
@@ -146,12 +146,12 @@ class WebApiApplication(
 		val instricoesSalvas = lavagemRepository.saveAll(listOf(instricoes, instricoes2))
 
 		val artigo = ArtigoEntity(
-			id = null,
-			nome = "Alfaiataria RVERTON",
-			instrucions = instricoesSalvas,
-			categotia = categoriaSaved,
-			status = StatusEnum.ACTIVE
-		)
+            id = null,
+            nome = "Alfaiataria RVERTON",
+            instrucions = instricoesSalvas,
+            categotia = categoriaSaved,
+            status = StatusEnum.ACTIVE
+        )
 		val composocao = ComposicaoDTO(
 			id = null,
 			descricao = "100 % algodao "
@@ -182,11 +182,11 @@ class WebApiApplication(
 			fichas = emptyList()
 		)
 		val colecaoEntity = ColecaoEntity(
-			id = null,
-			descricao = colecaoDTO.nome,
-			anoCoelecao = anoColecao2025,
-			status = StatusEnum.ACTIVE
-		)
+            id = null,
+            descricao = colecaoDTO.nome,
+            anoCoelecao = anoColecao2025,
+            status = StatusEnum.ACTIVE
+        )
 
 
 		val composicaoEntity = ComposicaoConverter.toEntity(composocao)

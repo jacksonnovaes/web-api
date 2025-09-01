@@ -2,9 +2,10 @@ package com.aurora.webapi.modules.fichas.converter
 
 import com.aurora.webapi.modules.fichas.FornecedorDTO
 import com.aurora.webapi.modules.fichas.LavagenDTO
-import com.aurora.webapi.modules.fichas.infra.entity.CategoriaLavagemEntity
-import com.aurora.webapi.modules.fichas.infra.entity.FornecedorEntity
-import com.aurora.webapi.modules.fichas.infra.entity.LavagemEntity
+import com.aurora.webapi.modules.fichas.adapters.outbound.entities.CategoriaLavagemEntity
+import com.aurora.webapi.modules.fichas.adapters.outbound.entities.FornecedorEntity
+import com.aurora.webapi.modules.fichas.adapters.outbound.entities.LavagemEntity
+
 
 object LavagemConverter {
 

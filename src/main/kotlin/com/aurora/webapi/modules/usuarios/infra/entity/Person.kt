@@ -1,6 +1,5 @@
 package com.aurora.webapi.modules.usuarios.infra.entity
 
-import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 
 @Entity
@@ -8,7 +7,7 @@ import jakarta.persistence.*
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @SequenceGenerator(name = "person_seq", sequenceName = "person_seq", allocationSize = 1)
 @DiscriminatorColumn(name = "TYPE", discriminatorType = DiscriminatorType.STRING)
-open class Person(
+class Person(
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "person_seq")
     val id: Long? = null,

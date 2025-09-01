@@ -1,7 +1,5 @@
 package com.aurora.webapi.exceptions
 
-import java.lang.RuntimeException
-
 class AuthorizationException: RuntimeException {
 
     constructor(message: String): super(message)

@@ -1,7 +1,7 @@
 package com.aurora.webapi.modules.fichas.service.lavagem
 
-import com.aurora.webapi.modules.fichas.infra.entity.LavagemEntity
-import com.aurora.webapi.modules.fichas.infra.repositories.LavagemRepository
+import com.aurora.webapi.modules.fichas.adapters.outbound.entities.LavagemEntity
+import com.aurora.webapi.modules.fichas.adapters.outbound.repositories.LavagemRepository
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 

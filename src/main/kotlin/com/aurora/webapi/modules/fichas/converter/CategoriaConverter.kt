@@ -1,7 +1,8 @@
 package com.aurora.webapi.modules.fichas.converter
 
 import com.aurora.webapi.modules.fichas.CategoriaDTO
-import com.aurora.webapi.modules.fichas.infra.entity.CategoriaEntity
+import com.aurora.webapi.modules.fichas.adapters.outbound.entities.CategoriaEntity
+
 
 object CategoriaConverter {
 

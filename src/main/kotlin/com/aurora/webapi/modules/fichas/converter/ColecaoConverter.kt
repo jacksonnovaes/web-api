@@ -3,15 +3,16 @@ package com.aurora.webapi.modules.fichas.converter
 import com.aurora.webapi.modules.fichas.AnoColecaoDTO
 import com.aurora.webapi.modules.fichas.ColecaoDTO
 import com.aurora.webapi.modules.fichas.ColecaoResponseDTO
-import com.aurora.webapi.modules.fichas.enums.StatusEnum
-import com.aurora.webapi.modules.fichas.infra.entity.ColecaoEntity
+import com.aurora.webapi.modules.fichas.adapters.inbound.dto.AnoColecaoRequestDTO
+import com.aurora.webapi.modules.fichas.adapters.outbound.entities.ColecaoEntity
+import com.aurora.webapi.modules.fichas.adapters.outbound.entities.enum.StatusEnum
 
 object ColecaoConverter {
     fun toEntity(colecao: ColecaoDTO): ColecaoEntity {
         return ColecaoEntity(
             id = colecao.id,
             descricao = colecao.nome,
-            anoCoelecao = AnoColecaoConverter.toEntity(AnoColecaoDTO.onlyId(colecao.anoColecaoId)),
+            anoCoelecao = AnoColecaoConverter.toEntity(AnoColecaoRequestDTO.onlyId(colecao.anoColecaoId)),
             fichas = emptyList(),
             status = StatusEnum.fromValue(colecao.status)
         )
