@@ -13,13 +13,13 @@ data class RoloEntity(
     @Column(name = "id")
     val id: Long? = null,
     @Column(name = "codigo")
-    val nome: Long,
+    val codigo: Long,
     @Column(name = "localizacao")
     val localizacao: String,
     @Embedded
-    val tipoMedida: Medidas,
-
-    val corId: Long,
+    val medidas: Medidas,
+    @ManyToOne
+    val cor: CorEntity,
 
     val fichaId: Long,
 

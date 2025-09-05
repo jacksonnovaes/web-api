@@ -8,6 +8,7 @@ import com.aurora.webapi.modules.fichas.FornecedorDTO
 import com.aurora.webapi.modules.fichas.adapters.outbound.entities.*
 import com.aurora.webapi.modules.fichas.adapters.outbound.entities.enum.StatusEnum
 import com.aurora.webapi.modules.fichas.adapters.outbound.repositories.*
+import com.aurora.webapi.modules.fichas.adapters.outbound.repositories.artigo.ArtigoRepositoryImpl
 import com.aurora.webapi.modules.fichas.converter.ComposicaoConverter
 import com.aurora.webapi.modules.fichas.converter.FichaConverter
 import com.aurora.webapi.modules.fichas.converter.FornecedorConverter
@@ -33,7 +34,7 @@ class WebApiApplication(
     private final val passwordEncoder: PasswordEncoder,
     private final val fornecedorRepository: FornecedorRepository,
     private final val lavagemRepository: LavagemRepository,
-    private final val artigoRepository: ArtigoRepository,
+    private final val artigoRepository: ArtigoRepositoryImpl,
     private final val categoriaRepository: CategoriaRepository,
     private final val categoriaLagamRepository: CategoriaLagamRepository,
     private final val anoColecaoRepository: AnoColecaoRepository
@@ -143,13 +144,13 @@ class WebApiApplication(
 			categoria = categoriaLavagem1
 		)
 
-		val instricoesSalvas = lavagemRepository.saveAll(listOf(instricoes, instricoes2))
+
 
 		val artigo = ArtigoEntity(
             id = null,
             nome = "Alfaiataria RVERTON",
-            instrucions = instricoesSalvas,
-            categotia = categoriaSaved,
+            instrucions = listOf(instricoes.id!!, instricoes2.id!!),
+            categoria = categoriaSaved.id,
             status = StatusEnum.ACTIVE
         )
 		val composocao = ComposicaoDTO(
@@ -200,7 +201,7 @@ class WebApiApplication(
 		employeeRepository.save(employee)
 		val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 		val dataEntrada = LocalDate.parse("06/04/2025", formatter)
-		val artigoSaved = artigoRepository.save(artigo)
+		val artigoSaved = artigoRepository.save(artigo.toDomain())
 
 		val ficha  = FichaDTO(
 			id = null,

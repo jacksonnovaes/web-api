@@ -3,6 +3,8 @@ package com.aurora.webapi.modules.fichas.application.usecases.artigo
 import com.aurora.webapi.modules.fichas.ArtigoDTO
 import com.aurora.webapi.modules.fichas.ArtigoResponseDTO
 import com.aurora.webapi.modules.fichas.converter.ArtigoConverter
+import com.aurora.webapi.modules.fichas.domain.Artigo
+import com.aurora.webapi.modules.fichas.domain.toEntity
 import com.aurora.webapi.modules.fichas.service.artigo.ArtigoService
 import jakarta.transaction.Transactional
 import jakarta.validation.Valid
@@ -13,8 +15,8 @@ class SaveArtigo(
     val artigoService: ArtigoService
 ) {
     @Transactional
-    fun execute(@Valid artigoDTO: ArtigoDTO): ArtigoResponseDTO {
-                val artigo = ArtigoConverter.toEntity(artigoDTO)
-        return ArtigoConverter.toDTO(artigoService.save(artigo))
+    fun execute(@Valid artigoDTO: ArtigoDTO): Artigo {
+                val artigo = artigoDTO.toDomain()
+        return artigoService.save(artigo.toEntity())
     }
 }

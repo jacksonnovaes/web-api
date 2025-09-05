@@ -1,6 +1,7 @@
 package com.aurora.webapi.modules.fichas.application.usecases.artigo
 
 import com.aurora.webapi.modules.fichas.adapters.outbound.entities.ArtigoEntity
+import com.aurora.webapi.modules.fichas.domain.Artigo
 import com.aurora.webapi.modules.fichas.service.artigo.ArtigoService
 import jakarta.transaction.Transactional
 import org.springframework.data.domain.Page
@@ -13,7 +14,7 @@ class ListArtigos(
      val artigoService: ArtigoService
 ) {
         @Transactional
-     fun execute(page: Int, linesPerPage: Int, orderBy: String, direction: String): Page<ArtigoEntity>{
+     fun execute(page: Int, linesPerPage: Int, orderBy: String, direction: String): Page<Artigo>{
 
             val pageRequest = PageRequest.of(page, linesPerPage, Sort.Direction.valueOf(direction), orderBy);
 

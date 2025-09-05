@@ -2,8 +2,7 @@ package com.aurora.webapi.modules.fichas.service.rolo
 
 import com.aurora.webapi.modules.fichas.adapters.outbound.entities.RoloEntity
 import com.aurora.webapi.modules.fichas.adapters.outbound.entities.enum.StatusEnum
-import com.aurora.webapi.modules.fichas.adapters.outbound.repositories.RoloRepository
-import com.aurora.webapi.modules.fichas.service.CrudService
+import com.aurora.webapi.modules.fichas.adapters.outbound.repositories.rolo.RoloRepository
 import jakarta.transaction.Transactional
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
@@ -47,7 +46,7 @@ class RoloService (
         status: String,
         pageable: Pageable
     ): Page<RoloEntity> {
-        return roloRepository.findAllByNomeAndStatus(pageable, termo, StatusEnum.ACTIVE)
+        return roloRepository.findAllByCodigoAndStatus(pageable, termo, StatusEnum.ACTIVE)
     }
 
 

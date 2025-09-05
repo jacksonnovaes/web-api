@@ -1,7 +1,7 @@
 package com.aurora.webapi.modules.fichas.adapters.outbound.entities
 
 import com.aurora.webapi.modules.fichas.adapters.outbound.entities.enum.StatusEnum
-import com.fasterxml.jackson.annotation.JsonBackReference
+import com.aurora.webapi.modules.fichas.domain.Artigo
 import jakarta.persistence.*
 
 @Entity
@@ -15,14 +15,20 @@ data class ArtigoEntity(
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
     val status: StatusEnum? = StatusEnum.ACTIVE,
-    @ManyToMany
-    @JoinTable(
+    @ElementCollection
+    @CollectionTable(
         name = "artigo_lavagem",
-        joinColumns = [JoinColumn(name = "id_artigo")],
-        inverseJoinColumns = [JoinColumn(name = "id_lavagem")])
-    val instrucions: List<LavagemEntity>? = emptyList(),
-    @ManyToOne
-    @JoinColumn(name = "id_categoria")
-    @JsonBackReference
-    val categotia: CategoriaEntity
+        joinColumns = [JoinColumn(name = "id_artigo")]
+    )
+    @Column(name = "id_lavagem")
+    val instrucions: List<Long>? = emptyList(),
+    @Column(name = "id_categoria")
+    val categoria: Long?
+)
+fun ArtigoEntity.toDomain() = Artigo(
+    id = this.id,
+    nome = this.nome,
+    status = this.status!!,
+    instrucionsIds = this.instrucions,
+    categoriaId = this.categoria!!,
 )

@@ -3,7 +3,6 @@ package com.aurora.webapi.modules.fichas.service.fornecedor
 import com.aurora.webapi.exceptions.EntityNotFoundException
 import com.aurora.webapi.modules.fichas.adapters.outbound.entities.FornecedorEntity
 import com.aurora.webapi.modules.fichas.adapters.outbound.repositories.FornecedorRepository
-import com.aurora.webapi.modules.fichas.service.CrudService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service

@@ -2,7 +2,6 @@ package com.aurora.webapi.modules.fichas.service.composicao
 
 import com.aurora.webapi.modules.fichas.adapters.outbound.entities.ComposicaoEntity
 import com.aurora.webapi.modules.fichas.adapters.outbound.repositories.ComposicaoRepository
-import com.aurora.webapi.modules.fichas.service.CrudService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service

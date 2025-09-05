@@ -4,7 +4,6 @@ import com.aurora.webapi.exceptions.EntityNotFoundException
 import com.aurora.webapi.modules.fichas.adapters.outbound.entities.ColecaoEntity
 import com.aurora.webapi.modules.fichas.adapters.outbound.entities.enum.StatusEnum
 import com.aurora.webapi.modules.fichas.adapters.outbound.repositories.ColecaoRepository
-import com.aurora.webapi.modules.fichas.service.CrudService
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
