@@ -10,8 +10,8 @@ import com.aurora.webapi.modules.fichas.adapters.outbound.entities.enum.StatusEn
 import com.aurora.webapi.modules.fichas.adapters.outbound.repositories.*
 import com.aurora.webapi.modules.fichas.adapters.outbound.repositories.artigo.ArtigoRepositoryImpl
 import com.aurora.webapi.modules.fichas.converter.ComposicaoConverter
-import com.aurora.webapi.modules.fichas.converter.FichaConverter
 import com.aurora.webapi.modules.fichas.converter.FornecedorConverter
+import com.aurora.webapi.modules.fichas.toEntity
 import com.aurora.webapi.modules.usuarios.infra.entity.Employee
 import com.aurora.webapi.modules.usuarios.infra.entity.Role
 import com.aurora.webapi.modules.usuarios.infra.entity.User
@@ -23,6 +23,7 @@ import org.springframework.boot.runApplication
 import org.springframework.security.crypto.password.PasswordEncoder
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.Arrays
 
 @SpringBootApplication
 class WebApiApplication(
@@ -144,12 +145,12 @@ class WebApiApplication(
 			categoria = categoriaLavagem1
 		)
 
-
+        val savedInstrucoes = lavagemRepository.saveAll(Arrays.asList(instricoes, instricoes2))
 
 		val artigo = ArtigoEntity(
             id = null,
             nome = "Alfaiataria RVERTON",
-            instrucions = listOf(instricoes.id!!, instricoes2.id!!),
+            instrucions = savedInstrucoes.map { it.id!! } ,
             categoria = categoriaSaved.id,
             status = StatusEnum.ACTIVE
         )
@@ -210,14 +211,12 @@ class WebApiApplication(
 			composicaoId = composicaoSaved.id,
 			dataEntrada = LocalDate.now().minusDays(2),
 			artigoId = artigoSaved.id,
-			artigo = artigoSaved.nome,
 			colecaoId = colecaoSaved.id,
-			anoColecaoId = colecaoSaved.anoCoelecao?.id,
 			fornecedorId = fornecedorSaved.id,
 			largura = 100.00F,
 			status = StatusEnum.ACTIVE.value
 		)
-		fichaRepository.save(FichaConverter.toEntity(ficha))
+		fichaRepository.save(ficha.toEntity())
 
 	}
 }

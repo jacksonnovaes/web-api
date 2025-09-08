@@ -11,7 +11,7 @@ interface ArtigoRepository {
     fun findAllByCodigoAndStatus(pageable: Pageable, termo: String, active: StatusEnum): Page<Artigo>
     fun findAllByStatus(active: StatusEnum, pageable: Pageable): Page<Artigo>
     fun findAll(): List<Artigo>
-    fun findAllById(ids: List<Long>): List<Artigo>
+    fun findAllById(ids: Set<Long>): List<Artigo>
     fun deleteById(id: Long)
     fun findAllByNomeAndStatus(pageable: org.springframework.data.domain.Pageable, termo: String, active: com.aurora.webapi.modules.fichas.adapters.outbound.entities.enum.StatusEnum): org.springframework.data.domain.Page<com.aurora.webapi.modules.fichas.adapters.outbound.entities.ArtigoEntity>
 

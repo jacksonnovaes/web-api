@@ -1,15 +1,15 @@
 package com.aurora.webapi.modules.fichas.application.usecases.lavagem
 
 import com.aurora.webapi.modules.fichas.adapters.outbound.entities.CategoriaLavagemEntity
-import com.aurora.webapi.modules.fichas.service.lavagem.CategoriaLagameService
+import com.aurora.webapi.modules.fichas.adapters.outbound.repositories.CategoriaLagamRepository
 import org.springframework.stereotype.Service
 
 @Service
 class ListCategoriaLavagem(
-    val categoriaLagameService: CategoriaLagameService
+    val categoriaLagamRepository: CategoriaLagamRepository
 ) {
 
     fun execute(): List<CategoriaLavagemEntity>{
-        return categoriaLagameService.buscarTodos()
+        return categoriaLagamRepository.findAll()
     }
 }

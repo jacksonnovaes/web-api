@@ -1,5 +1,6 @@
 package com.aurora.webapi.modules.fichas.domain
 
+import com.aurora.webapi.modules.fichas.ArtigoResponseDTO
 import com.aurora.webapi.modules.fichas.adapters.outbound.entities.ArtigoEntity
 import com.aurora.webapi.modules.fichas.adapters.outbound.entities.enum.StatusEnum
 
@@ -17,3 +18,4 @@ fun Artigo.toEntity() = ArtigoEntity(
     instrucions = this.instrucionsIds,
     categoria = this.categoriaId
 )
+

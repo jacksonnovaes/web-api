@@ -45,7 +45,7 @@ class ArtigoRepositoryImpl
         }
     }
 
-    override fun findAllById(ids: List<Long>): List<Artigo> {
+    override fun findAllById(ids: Set<Long>): List<Artigo> {
        return jpaArtigoRepository.findAllById(ids).map {
            it -> it.toDomain()
        }

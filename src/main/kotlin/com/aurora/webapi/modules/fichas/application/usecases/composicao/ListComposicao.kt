@@ -1,15 +1,15 @@
 package com.aurora.webapi.modules.fichas.application.usecases.composicao
 
 import com.aurora.webapi.modules.fichas.adapters.outbound.entities.ComposicaoEntity
-import com.aurora.webapi.modules.fichas.service.composicao.composicaoService
+import com.aurora.webapi.modules.fichas.adapters.outbound.repositories.ComposicaoRepository
 import org.springframework.stereotype.Service
 
 @Service
 class ListComposicao(
-    val composicaoService: composicaoService
+    val composicaoRepository: ComposicaoRepository
 ) {
 
     fun execute(): List<ComposicaoEntity> {
-        return composicaoService.buscarTodos()
+        return composicaoRepository.findAll()
     }
 }
