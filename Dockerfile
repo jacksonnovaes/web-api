@@ -16,7 +16,7 @@ COPY . .
 RUN ./gradlew clean build -x test --no-daemon
 
 # Etapa 2: Imagem leve para produção
-FROM openjdk:17-jdk-slim
+FROM amazoncorretto:17
 WORKDIR /app
 
 # Copia o jar gerado da etapa anterior

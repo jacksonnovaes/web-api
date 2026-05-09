@@ -1,5 +1,6 @@
 package com.aurora.webapi.modules.fichas.infra.entity
 
+import com.aurora.webapi.modules.fichas.adapters.outbound.entities.FichaEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
