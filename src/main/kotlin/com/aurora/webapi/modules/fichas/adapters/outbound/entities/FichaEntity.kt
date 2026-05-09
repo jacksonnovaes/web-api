@@ -1,7 +1,8 @@
 package com.aurora.webapi.modules.fichas.adapters.outbound.entities
 
+import com.aurora.webapi.modules.fichas.FichaDTO
+import com.aurora.webapi.modules.fichas.FichaReponseDTO
 import com.aurora.webapi.modules.fichas.adapters.outbound.entities.enum.StatusEnum
-import com.fasterxml.jackson.annotation.JsonBackReference
 import jakarta.persistence.*
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -24,20 +25,28 @@ data class FichaEntity(
     @Column(name = "largura")
     val largura: Float,
     @Column(name = "status")
-    @Enumerated(EnumType.STRING)  // <-- salva "ACTIVE" ou "INACTIVE"
+    @Enumerated(EnumType.STRING)
     val status: StatusEnum = StatusEnum.ACTIVE,
-    @ManyToOne
-    @JoinColumn(name = "id_colecao")
-    val colecao: ColecaoEntity,
-    @ManyToOne
-    @JoinColumn(name = "id_artigo")
-    val artigo: ArtigoEntity,
-    @ManyToOne
-    @JoinColumn(name="id_composicao")
-    @JsonBackReference
-    val composicao: ComposicaoEntity,
-    @ManyToOne
-    @JoinColumn(name = "id_fornecedor")
-    @JsonBackReference
-    val fornecedor: FornecedorEntity
+    @Column(name = "id_colecao")
+    val colecao: Long?,
+    @Column(name = "id_artigo")
+    val artigo: Long?,
+    @Column(name="id_composicao")
+    val composicao: Long?,
+    @Column(name = "id_fornecedor")
+    val fornecedor: Long?
+)
+
+
+fun FichaEntity.toDTO() = FichaDTO(
+    id = this.id,
+    numeroFicha = this.numeroFicha.toInt(),
+    notaFiscal = this.notaFiscal.toInt(),
+    dataEntrada = this.dataEntrada,
+    largura = this.largura,
+    artigoId = this.artigo,
+    status = this.status?.name ?: "",
+    colecaoId = this.colecao,
+    composicaoId = this.composicao,
+    fornecedorId = this.composicao
 )

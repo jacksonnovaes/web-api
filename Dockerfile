@@ -16,7 +16,7 @@ COPY . .
 RUN ./gradlew clean build -x test --no-daemon
 
 # Etapa 2: Imagem leve para produção
-FROM eclipse-temurin:17-jdk-jammy
+FROM amazoncorretto:17
 WORKDIR /app
 
 # Copia o jar gerado da etapa anterior

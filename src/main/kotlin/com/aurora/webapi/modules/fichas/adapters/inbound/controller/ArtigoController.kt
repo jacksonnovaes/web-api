@@ -8,6 +8,7 @@ import com.aurora.webapi.modules.fichas.application.usecases.artigo.BuscaArtigoB
 import com.aurora.webapi.modules.fichas.application.usecases.artigo.ListArtigos
 import com.aurora.webapi.modules.fichas.application.usecases.artigo.RemoverArtigo
 import com.aurora.webapi.modules.fichas.application.usecases.artigo.SaveArtigo
+import com.aurora.webapi.modules.fichas.domain.Artigo
 import com.aurora.webapi.utils.PageResponse
 import org.springframework.data.domain.Page
 import org.springframework.http.ResponseEntity
@@ -42,32 +43,11 @@ class ArtigoController(
         @RequestParam(value = "order", defaultValue = "nome") orderBy: String,
         @RequestParam(value = "direction", defaultValue = "ASC") direction: String,
     )
-            : ResponseEntity<PageResponse<ArtigoResponseDTO?>?> {
+            : ResponseEntity<PageResponse<ArtigoResponseDTO>?> {
 
         val listAll = listArtigos.execute(page, linesPerPage, orderBy, direction)
 
-
-        return ResponseEntity.ok(
-            listAll.map { artigo ->
-                ArtigoResponseDTO(
-                    artigo.id,
-                    artigo.nome,
-                    CategoriaDTO(
-                        id = artigo.categotia.id,
-                        nome = artigo.categotia.nome
-                    ),
-                    artigo.instrucions?.map {
-                        it
-                        LavagenRespondeDTO(
-                            id = it.id,
-                            descricao = it.descricao,
-                            code = it.code,
-                            imagem = it.imagem
-                        )
-                    },
-                    status = artigo.status?.value
-                )
-            }.toPageResponse())
+        return ResponseEntity.ok(listAll.toPageResponse())
     }
 
     @GetMapping("/search/{nome}")
@@ -78,32 +58,13 @@ class ArtigoController(
         @RequestParam(value = "order", defaultValue = "nome") orderBy: String,
         @RequestParam(value = "direction", defaultValue = "ASC") direction: String,
     )
-            : ResponseEntity<Page<ArtigoResponseDTO>> {
+            : ResponseEntity<PageResponse<Artigo>?> {
 
         val listAll = buscaArtigoByName.execute(nome,page, linesPerPage, orderBy, direction)
 
 
         return ResponseEntity.ok(
-            listAll.map { artigo ->
-                ArtigoResponseDTO(
-                    artigo.id,
-                    artigo.nome,
-                    CategoriaDTO(
-                        id = artigo.categotia.id,
-                        nome = artigo.categotia.nome
-                    ),
-                    artigo.instrucions?.map {
-                        it
-                        LavagenRespondeDTO(
-                            id = it.id,
-                            descricao = it.descricao,
-                            code = it.code,
-                            imagem = it.imagem
-                        )
-                    },
-                    status = artigo.status?.value
-                )
-            })
+            listAll.toPageResponse())
     }
 
     @PutMapping("/atualizar/{id}")

@@ -2,6 +2,8 @@ package com.aurora.webapi.modules.fichas.adapters.outbound.entities
 
 
 import com.aurora.webapi.modules.fichas.adapters.outbound.entities.enum.StatusEnum
+import com.aurora.webapi.modules.fichas.domain.Artigo
+import com.aurora.webapi.modules.fichas.domain.Rolo
 import jakarta.persistence.*
 
 @Entity
@@ -13,18 +15,25 @@ data class RoloEntity(
     @Column(name = "id")
     val id: Long? = null,
     @Column(name = "codigo")
-    val nome: Long,
+    val codigo: Long,
     @Column(name = "localizacao")
     val localizacao: String,
     @Embedded
-    val tipoMedida: Medidas,
-
-    val corId: Long,
+    val medidas: Medidas,
+    @ManyToOne
+    val cor: CorEntity,
 
     val fichaId: Long,
 
     val status: StatusEnum
+)
 
-
-
+fun RoloEntity.toDomain() = Rolo(
+    id = this.id,
+    codigo = this.codigo,
+    localizacao = this.localizacao,
+    medidas = this.medidas,
+    cor = this.cor,
+    fichaId = this.fichaId,
+    status = this.status,
 )

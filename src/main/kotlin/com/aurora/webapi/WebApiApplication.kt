@@ -8,9 +8,10 @@ import com.aurora.webapi.modules.fichas.FornecedorDTO
 import com.aurora.webapi.modules.fichas.adapters.outbound.entities.*
 import com.aurora.webapi.modules.fichas.adapters.outbound.entities.enum.StatusEnum
 import com.aurora.webapi.modules.fichas.adapters.outbound.repositories.*
+import com.aurora.webapi.modules.fichas.adapters.outbound.repositories.artigo.ArtigoRepositoryImpl
 import com.aurora.webapi.modules.fichas.converter.ComposicaoConverter
-import com.aurora.webapi.modules.fichas.converter.FichaConverter
 import com.aurora.webapi.modules.fichas.converter.FornecedorConverter
+import com.aurora.webapi.modules.fichas.toEntity
 import com.aurora.webapi.modules.usuarios.infra.entity.Employee
 import com.aurora.webapi.modules.usuarios.infra.entity.Role
 import com.aurora.webapi.modules.usuarios.infra.entity.User
@@ -22,6 +23,7 @@ import org.springframework.boot.runApplication
 import org.springframework.security.crypto.password.PasswordEncoder
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.Arrays
 
 @SpringBootApplication
 class WebApiApplication(
@@ -33,7 +35,7 @@ class WebApiApplication(
     private final val passwordEncoder: PasswordEncoder,
     private final val fornecedorRepository: FornecedorRepository,
     private final val lavagemRepository: LavagemRepository,
-    private final val artigoRepository: ArtigoRepository,
+    private final val artigoRepository: ArtigoRepositoryImpl,
     private final val categoriaRepository: CategoriaRepository,
     private final val categoriaLagamRepository: CategoriaLagamRepository,
     private final val anoColecaoRepository: AnoColecaoRepository
@@ -143,13 +145,13 @@ class WebApiApplication(
 			categoria = categoriaLavagem1
 		)
 
-		val instricoesSalvas = lavagemRepository.saveAll(listOf(instricoes, instricoes2))
+        val savedInstrucoes = lavagemRepository.saveAll(Arrays.asList(instricoes, instricoes2))
 
 		val artigo = ArtigoEntity(
             id = null,
             nome = "Alfaiataria RVERTON",
-            instrucions = instricoesSalvas,
-            categotia = categoriaSaved,
+            instrucions = savedInstrucoes.map { it.id!! } ,
+            categoria = categoriaSaved.id,
             status = StatusEnum.ACTIVE
         )
 		val composocao = ComposicaoDTO(
@@ -200,7 +202,7 @@ class WebApiApplication(
 		employeeRepository.save(employee)
 		val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
 		val dataEntrada = LocalDate.parse("06/04/2025", formatter)
-		val artigoSaved = artigoRepository.save(artigo)
+		val artigoSaved = artigoRepository.save(artigo.toDomain())
 
 		val ficha  = FichaDTO(
 			id = null,
@@ -209,14 +211,12 @@ class WebApiApplication(
 			composicaoId = composicaoSaved.id,
 			dataEntrada = LocalDate.now().minusDays(2),
 			artigoId = artigoSaved.id,
-			artigo = artigoSaved.nome,
 			colecaoId = colecaoSaved.id,
-			anoColecaoId = colecaoSaved.anoCoelecao?.id,
 			fornecedorId = fornecedorSaved.id,
 			largura = 100.00F,
 			status = StatusEnum.ACTIVE.value
 		)
-		fichaRepository.save(FichaConverter.toEntity(ficha))
+		fichaRepository.save(ficha.toEntity())
 
 	}
 }

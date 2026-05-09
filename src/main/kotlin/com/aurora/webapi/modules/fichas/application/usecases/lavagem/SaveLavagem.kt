@@ -4,13 +4,13 @@ import com.aurora.webapi.modules.fichas.LavagenDTO
 import com.aurora.webapi.modules.fichas.adapters.outbound.entities.CategoriaLavagemEntity
 import com.aurora.webapi.modules.fichas.adapters.outbound.entities.LavagemEntity
 import com.aurora.webapi.modules.fichas.adapters.outbound.repositories.CategoriaLagamRepository
-import com.aurora.webapi.modules.fichas.service.lavagem.LavagenService
+import com.aurora.webapi.modules.fichas.adapters.outbound.repositories.LavagemRepository
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
 
 @Service
 class SaveLavagem(
-    val lavagemService: LavagenService,
+    val lavagemRepository: LavagemRepository,
     val categoriaLagamRepository: CategoriaLagamRepository
 ) {
     fun execute(lavagenDTO: LavagenDTO, file: MultipartFile): LavagemEntity {
@@ -36,7 +36,7 @@ class SaveLavagem(
             categoria = categoria
         )
 
-        return lavagemService.salvarLavagen(lavagem)
+        return lavagemRepository.save(lavagem)
     }
 
 }

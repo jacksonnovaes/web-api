@@ -1,28 +1,30 @@
 package com.aurora.webapi.modules.fichas.application.usecases.artigo
 
-import com.aurora.webapi.modules.fichas.ArtigoDTO
+import com.aurora.webapi.exceptions.EntityNotFoundException
+import com.aurora.webapi.modules.fichas.adapters.outbound.entities.ArtigoEntity
 import com.aurora.webapi.modules.fichas.adapters.outbound.entities.enum.StatusEnum
-import com.aurora.webapi.modules.fichas.converter.ArtigoConverter
-import com.aurora.webapi.modules.fichas.service.artigo.ArtigoService
+import com.aurora.webapi.modules.fichas.adapters.outbound.entities.toDomain
+import com.aurora.webapi.modules.fichas.adapters.outbound.repositories.artigo.ArtigoRepository
 import org.springframework.stereotype.Service
 
 @Service
 class  RemoverArtigo(
-    val artigoService: ArtigoService
+    val artigoRepository: ArtigoRepository
 
 ) {
 
     fun execute(id: Long){
-        val artigo = artigoService.buscarPorId(id)
+        val artigo = artigoRepository.findById(id) ?:
+           throw EntityNotFoundException("artigo nao encontrado")
 
-        val artigoDTO = ArtigoDTO(
+        val artigoDTO = ArtigoEntity(
             id = artigo.id,
             nome = artigo.nome,
-            instrucoes = artigo.instrucions?.map { it.id } as List<Long?>,
-            categoriaId = artigo.categotia.id,
-            status = StatusEnum.INACTIVE.value
+            instrucions = artigo.instrucionsIds?.map { it },
+            categoria = artigo.categoriaId,
+            status = StatusEnum.INACTIVE
         )
-        artigoService.save(ArtigoConverter.toEntity(artigoDTO))
+        artigoRepository.save(artigoDTO.toDomain())
     }
 
 }
