@@ -1,0 +1,17 @@
+# Use root/example as user/password credentials doc
+services:
+  aurora-monorepo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: jacks775/aurora-api
+    ports:
+      - "8080:8080"  # Mapeando porta do host para o contêiner
+    networks:
+      - aurora-net
+
+volumes:
+  postgres_data:
+
+networks:
+  aurora-net:
